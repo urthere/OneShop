@@ -36,14 +36,17 @@ namespace OneShop
             }
 
             this.tbDetails.RowGroups.Add(trg);
-            this.pgpTotal.Inlines.Add(new Run("合计：" + stockViewModel.OrderPrice.ToString() + "元"));
-            GrayImage();
+            this.pgpTotal.Inlines.Add(new Run("合计：" + stockViewModel.OrderPrice.ToString("C") + "元"));
+            
 
             var page = ((IDocumentPaginatorSource)fdReceipt).DocumentPaginator;
             page.PageSize = new Size(180, 1000);
             new PrintDialog().PrintDocument(page, "text");
         }
 
+        /// <summary>
+        /// 灰化图片
+        /// </summary>
         private void GrayImage()
         {
             BitmapImage myBitmapImage = new BitmapImage();
@@ -56,11 +59,10 @@ namespace OneShop
             newFormatedBitmapSource.Source = myBitmapImage;
             newFormatedBitmapSource.DestinationFormat = PixelFormats.Gray32Float;
             newFormatedBitmapSource.EndInit();
-            imgQR.Width = 100;
-
-            imgQR.Height = 100;
+            //imgQR.Width = 100;
+            //imgQR.Height = 100;
             //set image source
-            imgQR.Source = newFormatedBitmapSource;
+            //imgQR.Source = newFormatedBitmapSource;
         }
     }
 }

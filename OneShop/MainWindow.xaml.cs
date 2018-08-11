@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Text.RegularExpressions;
 using System.Linq;
 using OneShop.Model;
+using System.Windows.Input;
 
 namespace OneShop
 {
@@ -20,18 +21,6 @@ namespace OneShop
             stock = new StockViewModel(App.DBConnectionString) { CurrentUser = "admin" };
             this.grdDetail.ItemsSource = stock.StockList;
             this.tbTotal.DataContext = stock;
-        }
-
-        private void txtBarcode_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            var length = this.txtBarcode.Text.Trim().Length;
-            if (0 != ConstantVariables.BarcodeLengthSet.FirstOrDefault(x => x == length))
-            {
-                if (!stock.GetStock(this.txtBarcode.Text.Trim()))
-                {
-                    MessageBox.Show("条码错误或商品库存不足！", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
         }
 
         private void txtBarcode_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
@@ -56,14 +45,10 @@ namespace OneShop
             }
 
             var receipt = new Receipt(this.stock);
-            receipt.ShowDialog();
-            stock = new StockViewModel(App.DBConnectionString);
+            //receipt.ShowDialog();
+            this.stock.OrderPrice = 0;
+            this.stock.ClearAll();
         }        
-
-        private void PrintReceipt()
-        {
-
-        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -78,6 +63,22 @@ namespace OneShop
             {
                 this.stock.StockList.Remove(item);
                 this.stock.ReCalculate();
+            }
+        }
+
+        private void txtBarcode_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {            
+            if (e.Key == Key.Enter)
+            {
+                if (!stock.GetStock(this.txtBarcode.Text.Trim()))
+                {
+                    MessageBox.Show("条码错误或商品库存不足！", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                    this.txtBarcode.SelectAll();
+                }
+                else
+                {
+                    this.txtBarcode.Text = string.Empty;
+                }
             }
         }
     }

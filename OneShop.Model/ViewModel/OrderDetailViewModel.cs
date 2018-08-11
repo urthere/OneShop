@@ -20,9 +20,17 @@ namespace OneShop.Model
         {
             this.ConnectionString = conStr;
 
-            objOrder = new Order() { IsValid = true, OrderDate = DateTime.Now, ModBy = DateTime.Now };
+            objOrder = new Order() { IsValid = true };
             objOrderDetail = new List<OrderDetail>();
             stockList = new ObservableCollection<StockListModel>();
+        }
+
+        public void ClearAll()
+        {
+            this.objOrder = new Order() { IsValid = true, OrderPrice = 0 };
+            this.objOrderDetail.Clear();
+            this.stockList.Clear();
+            
         }
 
         public void CancelStock(StockListModel model)
@@ -59,6 +67,9 @@ namespace OneShop.Model
                     try
                     {
                         PrepareOrderDetail();
+                        this.objOrder.OrderDate = DateTime.Now;
+                        this.objOrder.ModBy = DateTime.Now;
+
                         context.Orders.Add(this.objOrder);
                         context.SaveChanges();
 
@@ -105,7 +116,11 @@ namespace OneShop.Model
         public decimal OrderPrice
         {
             get => objOrder.OrderPrice;
-            set => objOrder.OrderPrice = value;
+            set
+            {
+                objOrder.OrderPrice = value;
+                RaisePropertyChanged("OrderPrice");
+            }
         }
 
         public void ReCalculate()

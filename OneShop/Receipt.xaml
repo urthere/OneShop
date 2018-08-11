@@ -10,7 +10,7 @@
         <Paragraph Margin="0,0,0,2" TextAlignment="Center" FontSize="14" FontFamily="Yahei">欢迎光临</Paragraph>
         <Paragraph Margin="0,0,0,2" TextAlignment="Center" FontSize="34" FontFamily="Yahei" FontWeight="Bold">NUNA</Paragraph>
         <Paragraph Margin="0,2,0,2" TextAlignment="Center" FontSize="24" FontWeight="Bold">全球优选</Paragraph>
-        <Paragraph x:Name="pgpDatetime" Margin="0,10,0,2" TextAlignment="Left" FontSize="12"></Paragraph>
+        <Paragraph x:Name="pgpDatetime" Margin="0,10,0,2" TextAlignment="Left" FontSize="12" FontFamily="宋体"></Paragraph>
         <Table Margin="0,6,0,0" x:Name="tbDetails" FontSize="10" FontFamily="宋体" BorderBrush="Black" BorderThickness="0,0,0,2">
             <Table.Columns>
                 <TableColumn Width="30"></TableColumn>
@@ -35,12 +35,9 @@
                 </TableRow>
             </TableRowGroup>
         </Table>
-        <Paragraph x:Name="pgpTotal" Margin="0,10,0,2" FontSize="12"></Paragraph>
-        <Paragraph Margin="0,10,0,2" FontSize="12">化妆品一经出售，概不退换！</Paragraph>
-        <Paragraph Margin="0,10,0,2" FontSize="12">更多优选请关注店铺微信号：</Paragraph>
-        <BlockUIContainer>
-            <Image x:Name="imgQR"></Image>
-        </BlockUIContainer>
+        <Paragraph x:Name="pgpTotal" Margin="0,10,0,2" FontSize="12" FontFamily="宋体"></Paragraph>
+        <Paragraph Margin="0,10,0,2" FontSize="12" FontFamily="宋体">化妆品一经出售，概不退换！</Paragraph>
+        <Paragraph Margin="0,10,0,2" FontSize="12" FontFamily="宋体">更多优选请关注店铺微信号：NUNA8-12</Paragraph>        
     </FlowDocument>
     
 </Window>
