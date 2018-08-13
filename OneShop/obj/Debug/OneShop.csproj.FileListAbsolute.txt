@@ -27,3 +27,5 @@ D:\vs2017pjs\OneShop\OneShop\obj\Debug\NewStock.g.cs
 D:\vs2017pjs\OneShop\OneShop\obj\Debug\NewStock.baml
 D:\vs2017pjs\OneShop\OneShop\obj\Debug\Receipt.g.cs
 D:\vs2017pjs\OneShop\OneShop\obj\Debug\Receipt.baml
+D:\vs2017pjs\OneShop\OneShop\obj\Debug\StockQuery.g.cs
+D:\vs2017pjs\OneShop\OneShop\obj\Debug\StockQuery.baml

@@ -24,7 +24,6 @@ namespace OneShop.Model
                 }
                 catch (System.Data.Entity.Core.MetadataException ex)
                 {
-
                     throw;
                 }
                 

@@ -52,6 +52,18 @@
     <Property Name="ModBy" Type="varchar" MaxLength="20" Nullable="false" />
     <Property Name="ModDate" Type="datetime" Nullable="false" />
   </EntityType>
+  <EntityType Name="StockHistory">
+    <Key>
+      <PropertyRef Name="HisID" />
+    </Key>
+    <Property Name="HisID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ItemBarcode" Type="varchar" MaxLength="13" Nullable="false" />
+    <Property Name="ItemName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ItemCount" Type="int" />
+    <Property Name="ItemPrice" Type="numeric" Precision="10" Scale="2" />
+    <Property Name="HistoryBy" Type="varchar" MaxLength="20" />
+    <Property Name="HistoryDate" Type="datetime" Nullable="false" />
+  </EntityType>
   <EntityType Name="User">
     <Key>
       <PropertyRef Name="UserID" />
@@ -71,6 +83,7 @@
     <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="OrderDetail" EntityType="Self.OrderDetail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Stock" EntityType="Self.Stock" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StockHistory" EntityType="Self.StockHistory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
   </EntityContainer>
 </Schema>

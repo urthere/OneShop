@@ -72,5 +72,18 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="StockHistories">
+      <EntityTypeMapping TypeName="OneShopModel.StockHistory">
+        <MappingFragment StoreEntitySet="StockHistory">
+          <ScalarProperty Name="HistoryDate" ColumnName="HistoryDate" />
+          <ScalarProperty Name="HistoryBy" ColumnName="HistoryBy" />
+          <ScalarProperty Name="ItemPrice" ColumnName="ItemPrice" />
+          <ScalarProperty Name="ItemCount" ColumnName="ItemCount" />
+          <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+          <ScalarProperty Name="ItemBarcode" ColumnName="ItemBarcode" />
+          <ScalarProperty Name="HisID" ColumnName="HisID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

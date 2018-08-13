@@ -65,6 +65,9 @@
     <Compile Include="Receipt.xaml.cs">
       <DependentUpon>Receipt.xaml</DependentUpon>
     </Compile>
+    <Compile Include="StockQuery.xaml.cs">
+      <DependentUpon>StockQuery.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -87,6 +90,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Receipt.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StockQuery.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

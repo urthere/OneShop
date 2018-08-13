@@ -30,8 +30,8 @@ namespace OneShop.Model
     
     public class DelegateCommand : ICommand
     {
-        private Func<object, bool> canExecute;
-        private Action<object> executeAction;
+        private readonly Func<object, bool> canExecute;
+        private readonly Action<object> executeAction;
         bool canExecuteCache;
         public DelegateCommand(Action<object> executeAction, Func<object, bool> canExecute = null)
         {
@@ -52,6 +52,11 @@ namespace OneShop.Model
         }
 
         public event EventHandler CanExecuteChanged;
+
+        public void RaiseCanExecuteChanged()
+        {
+            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+        }
 
         public void Execute(object parameter)
         {
