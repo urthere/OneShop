@@ -16,6 +16,7 @@
       <PropertyRef Name="OrderID" />
     </Key>
     <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SerialNumber" Type="varchar" MaxLength="14" />
     <Property Name="MemberID" Type="int" />
     <Property Name="DiscountID" Type="int" />
     <Property Name="OrderPrice" Type="numeric" Precision="10" Scale="2" Nullable="false" />

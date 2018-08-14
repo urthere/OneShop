@@ -67,6 +67,7 @@ namespace OneShop.Model
                     try
                     {
                         PrepareOrderDetail();
+                        this.objOrder.SerialNumber = this.GenerateSerialNumber();
                         this.objOrder.OrderDate = DateTime.Now;
                         this.objOrder.ModBy = DateTime.Now;
 
@@ -75,7 +76,7 @@ namespace OneShop.Model
 
                         foreach (var item in objOrderDetail)
                         {
-                            item.OrderID = this.objOrder.OrderID;
+                            item.OrderID = this.objOrder.OrderID;                            
                             context.OrderDetails.Add(item);
                             var stockItem = context.Stocks.FirstOrDefault(x => x.ItemBarcode.Equals(item.ItemBarcode));
                             stockItem.ItemCount -= item.ItemCount;
@@ -101,6 +102,11 @@ namespace OneShop.Model
             }
         }
 
+        private string GenerateSerialNumber()
+        {
+            return DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString();
+        }
+
         public bool GetStock(string barcode)
         {
             var stockView = new StockListModel(barcode, this.ConnectionString) { CalAct = this.ReCalculate};
@@ -122,6 +128,8 @@ namespace OneShop.Model
                 RaisePropertyChanged("OrderPrice");
             }
         }
+
+        public string SerialNumber { get => this.objOrder.SerialNumber; }
 
         public void ReCalculate()
         {

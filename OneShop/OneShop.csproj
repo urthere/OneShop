@@ -58,17 +58,22 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commands\OrderDetailsCommand.cs" />
-    <Compile Include="Convertoers\DateTimeConverter.cs" />
-    <Compile Include="Convertoers\StatusConverter.cs" />
+    <Compile Include="Converters\BackgroundConverter.cs" />
+    <Compile Include="Converters\BackgroundConverterByItemCount.cs" />
+    <Compile Include="Converters\DateTimeConverter.cs" />
+    <Compile Include="Converters\StatusConverter.cs" />
     <Compile Include="NewStock.xaml.cs">
       <DependentUpon>NewStock.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Convertoers\Converters.cs" />
+    <Compile Include="Converters\Converters.cs" />
     <Compile Include="OrderQuery.xaml.cs">
       <DependentUpon>OrderQuery.xaml</DependentUpon>
     </Compile>
     <Compile Include="Receipt.xaml.cs">
       <DependentUpon>Receipt.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RefundExchange.xaml.cs">
+      <DependentUpon>RefundExchange.xaml</DependentUpon>
     </Compile>
     <Compile Include="StockQuery.xaml.cs">
       <DependentUpon>StockQuery.xaml</DependentUpon>
@@ -99,6 +104,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Receipt.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RefundExchange.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

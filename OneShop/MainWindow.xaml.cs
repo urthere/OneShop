@@ -91,5 +91,10 @@ namespace OneShop
         {
             new OrderQuery().ShowDialog();
         }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            new RefundExchange().ShowDialog();
+        }
     }
 }

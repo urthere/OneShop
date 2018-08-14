@@ -73,6 +73,7 @@
     <Property Name="IsValid" Type="Boolean" Nullable="false" />
     <Property Name="ModBy" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="SerialNumber" Type="String" MaxLength="14" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="StockHistory">
     <Key>

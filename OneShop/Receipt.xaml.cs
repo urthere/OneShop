@@ -17,7 +17,8 @@ namespace OneShop
         {
             InitializeComponent();
 
-            this.pgpDatetime.Inlines.Add(new Run("日期：" + System.DateTime.Now.ToString("yyyy-mm-dd HH:mm")));
+            this.pgpDatetime.Inlines.Add(new Run("日期：" + System.DateTime.Now.ToString("yyyy-MM-dd HH:mm")));
+            this.pgpSerialNumber.Inlines.Add(new Run("流水号：" + stockViewModel.SerialNumber));
             var trg = new TableRowGroup();
             foreach (var item in stockViewModel.StockList)
             {
@@ -37,7 +38,7 @@ namespace OneShop
 
             this.tbDetails.RowGroups.Add(trg);
             this.pgpTotal.Inlines.Add(new Run("合计：" + stockViewModel.OrderPrice.ToString("C") + "元"));
-            
+
 
             var page = ((IDocumentPaginatorSource)fdReceipt).DocumentPaginator;
             page.PageSize = new Size(180, 1000);

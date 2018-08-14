@@ -21,6 +21,7 @@
             <PropertyRef Name="OrderID" />
           </Key>
           <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SerialNumber" Type="varchar" MaxLength="14" />
           <Property Name="MemberID" Type="int" />
           <Property Name="DiscountID" Type="int" />
           <Property Name="OrderPrice" Type="numeric" Precision="10" Scale="2" Nullable="false" />
@@ -168,6 +169,7 @@
           <Property Name="IsValid" Type="Boolean" Nullable="false" />
           <Property Name="ModBy" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SerialNumber" Type="String" MaxLength="14" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="StockHistory">
           <Key>
@@ -247,6 +249,7 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="OneShopModel.Order">
               <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
                 <ScalarProperty Name="ModBy" ColumnName="ModBy" />
                 <ScalarProperty Name="IsValid" ColumnName="IsValid" />

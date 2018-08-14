@@ -61,6 +61,7 @@
     <EntitySetMapping Name="Orders">
       <EntityTypeMapping TypeName="OneShopModel.Order">
         <MappingFragment StoreEntitySet="Order">
+          <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
           <ScalarProperty Name="Remarks" ColumnName="Remarks" />
           <ScalarProperty Name="ModBy" ColumnName="ModBy" />
           <ScalarProperty Name="IsValid" ColumnName="IsValid" />

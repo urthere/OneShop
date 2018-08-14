@@ -31,3 +31,5 @@ D:\vs2017pjs\OneShop\OneShop\obj\Release\StockQuery.baml
 D:\vs2017pjs\OneShop\OneShop\obj\Release\StockQuery.g.cs
 D:\vs2017pjs\OneShop\OneShop\obj\Release\OrderQuery.g.cs
 D:\vs2017pjs\OneShop\OneShop\obj\Release\OrderQuery.baml
+D:\vs2017pjs\OneShop\OneShop\obj\Release\RefundExchange.g.cs
+D:\vs2017pjs\OneShop\OneShop\obj\Release\RefundExchange.baml

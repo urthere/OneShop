@@ -20,7 +20,7 @@ namespace OneShop.Model
                 context.Database.Connection.ConnectionString = con;
                 try
                 {
-                    this.stock = context.Stocks.FirstOrDefault(x => x.ItemBarcode.Equals(barcode) && x.ItemCount > 0);
+                    this.stock = context.Stocks.FirstOrDefault(x => x.ItemBarcode.Equals(barcode));
                 }
                 catch (System.Data.Entity.Core.MetadataException ex)
                 {
@@ -88,7 +88,7 @@ namespace OneShop.Model
 
         public int? ItemCount
         {
-            get => itemSoldCount;
+            get => this.itemSoldCount;
             set
             {
                 if (int.TryParse(value.ToString(), out int i))

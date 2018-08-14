@@ -54,6 +54,7 @@ namespace OneShop.Model
                 od => od.ItemBarcode,
                 s => s.ItemBarcode,
                 (od, s) => new {
+                    od.DetailID,
                     od.ItemBarcode,
                     s.ItemName,
                     od.UnitPrice,
@@ -63,14 +64,63 @@ namespace OneShop.Model
                     od.ItemCount,
                     od.IsValid
                 }).Where(
-                od =>  od.IsValid &&
-                od.DatailDate > startDate &&
-                od.DatailDate < endDate
+                od => od.DatailDate > startDate &&
+                od.DatailDate < endDate 
                 ).ToList();
 
             IList<OrderDetailsNameModel> tmp = new List<OrderDetailsNameModel>();
             b.ForEach(x => tmp.Add(new OrderDetailsNameModel()
             {
+                DetailID = x.DetailID,
+                ItemBarcode = x.ItemBarcode,
+                ItemCount = x.ItemCount,
+                ItemName = x.ItemName,
+                UnitPrice = x.UnitPrice,
+                Discount = x.Discount,
+                DatailDate = x.DatailDate,
+                IsValid = x.IsValid,
+                DetailPrice = x.DetailPrice
+            }));
+            return tmp;
+        }
+        public static IList<OrderDetailsNameModel> QueryJoin(OneShopEntities context, string serial)
+        {
+            var list = context.OrderDetails.Join(
+                context.Orders,
+                o => o.OrderID,
+                od => od.OrderID,
+                (o, od) => new
+                {
+                    o.DetailID,
+                    od.SerialNumber,
+                    o.ItemBarcode,
+                    o.UnitPrice,
+                    o.DetailPrice,
+                    o.Discount,
+                    o.DatailDate,
+                    o.ItemCount,
+                    o.IsValid
+                }).Where(o => o.SerialNumber.Equals(serial)).Join(
+                context.Stocks,
+                od => od.ItemBarcode,
+                s => s.ItemBarcode,
+                (od, s) => new
+                {
+                    od.DetailID,
+                    s.ItemName,
+                    od.ItemBarcode,
+                    od.UnitPrice,
+                    od.DetailPrice,
+                    od.Discount,
+                    od.DatailDate,
+                    od.ItemCount,
+                    od.IsValid
+                }).ToList();
+
+            IList<OrderDetailsNameModel> tmp = new List<OrderDetailsNameModel>();
+            list.ForEach(x => tmp.Add(new OrderDetailsNameModel()
+            {
+                DetailID = x.DetailID,
                 ItemBarcode = x.ItemBarcode,
                 ItemCount = x.ItemCount,
                 ItemName = x.ItemName,

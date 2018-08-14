@@ -23,9 +23,24 @@ namespace OneShop.Model
             orderDetailsNameModel = new List<OrderDetailsNameModel>();
             conn = con;
             QueryDetailsCommand = new DelegateCommand(this.GetOrderDetails, this.IsValid);
+            QueryOrderCommand = new DelegateCommand(this.GetOrder, this.IsValid);
+            UpdateRefundCommand = new DelegateCommand(this.RefundDetail, this.CanRefund);
         }
         
         public ICommand QueryDetailsCommand { get; set; }
+        public ICommand QueryOrderCommand { get; set; }
+        public ICommand UpdateRefundCommand { get; set; }
+
+        private void GetOrder(object para)
+        {
+            using (var context = new OneShopEntities())
+            {
+                context.Database.Connection.ConnectionString = this.conn;
+                orderDetailsNameModel = Common<OrderDetailsNameModel>.QueryJoin(context, para.ToString());
+                RaisePropertyChanged("OrderDetailsNameModels");
+                RaisePropertyChanged("TotalPrice");
+            }
+        }
 
         private void GetOrderDetails(object para)
         {
@@ -35,8 +50,45 @@ namespace OneShop.Model
             using (var context = new OneShopEntities())
             {
                 context.Database.Connection.ConnectionString = this.conn;
-                orderDetailsNameModel = Common<OrderDetailsNameModel>.QueryJoin(context, startDate, endDate);                
-                RaisePropertyChanged("OrderDetailsNameModels");                
+                orderDetailsNameModel = Common<OrderDetailsNameModel>.QueryJoin(context, startDate, endDate);
+                RaisePropertyChanged("OrderDetailsNameModels");
+                RaisePropertyChanged("TotalPrice");
+            }
+        }
+
+        private void RefundDetail(object para)
+        {
+            using (var context = new OneShopEntities())
+            {
+                context.Database.Connection.ConnectionString = this.conn;
+                using (var tran = context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var details = context.OrderDetails.FirstOrDefault(x => x.DetailID == (int)para);
+                        details.IsValid = false;
+                        details.DatailDate = DateTime.Now;
+                        var order = context.Orders.FirstOrDefault(x => x.OrderID == details.OrderID);
+                        order.OrderPrice -= details.DetailPrice;
+                        var stock = context.Stocks.FirstOrDefault(x => x.ItemBarcode.Equals(details.ItemBarcode));
+                        stock.ItemCount += details.ItemCount;
+                        context.Orders.Attach(order);
+                        context.OrderDetails.Attach(details);
+                        context.Stocks.Attach(stock);
+                        context.Entry(order).State = System.Data.Entity.EntityState.Modified;
+                        context.Entry(details).State = System.Data.Entity.EntityState.Modified;
+                        context.Entry(stock).State = System.Data.Entity.EntityState.Modified;
+                        context.SaveChanges();
+
+                        tran.Commit();
+
+                        this.GetOrder(order.SerialNumber);
+                    }
+                    catch (Exception)
+                    {
+                        tran.Rollback();
+                    }                    
+                }
             }
         }
 
@@ -50,7 +102,24 @@ namespace OneShop.Model
 
         public IList<OrderDetailsNameModel> OrderDetailsNameModels { get => this.orderDetailsNameModel; }
 
+        public decimal TotalPrice
+        {
+            get
+            {
+                if (this.OrderDetailsNameModels.Count > 0)
+                {
+                    return this.OrderDetailsNameModels.Sum(x => x.DetailPrice);
+                }
+                return 0;
+            }
+        }
+
         private bool IsValid(object para)
+        {
+            return true;
+        }
+
+        private bool CanRefund(object para)
         {
             return true;
         }

@@ -22,5 +22,6 @@ namespace OneShop.Model
         public bool IsValid { get; set; }
         public System.DateTime ModBy { get; set; }
         public string Remarks { get; set; }
+        public string SerialNumber { get; set; }
     }
 }
