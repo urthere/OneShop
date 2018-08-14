@@ -1,0 +1,61 @@
+﻿<Window x:Class="OneShop.OrderQuery"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OneShop"
+        mc:Ignorable="d"
+        Title="OrderQuery" Height="450" Width="800"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <Window.Resources>
+        <local:DateTimeConverter x:Key="DTC"></local:DateTimeConverter>
+        <local:StatusConverter x:Key="STC"></local:StatusConverter>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <GroupBox Header="查询条件" Margin="4">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                    <ColumnDefinition Width="4*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="开始日期" TextAlignment="Right" VerticalAlignment="Center" Margin="2"></TextBlock>
+                <DatePicker Grid.Column="1" x:Name="dtpStartDate" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                <TextBlock Text="结束日期" Grid.Row="1" TextAlignment="Right" VerticalAlignment="Center" Margin="2"></TextBlock>
+                <DatePicker Grid.Row="1" Grid.Column="1" x:Name="dtpEndDate" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                <Button Content="查询" Grid.Row="1" Grid.Column="2" Margin="150,2" Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.QueryDetailsCommand}">
+                    <Button.CommandParameter>
+                        <MultiBinding Converter="{StaticResource DTC}">
+                            <Binding ElementName="dtpStartDate" Path="SelectedDate" />
+                            <Binding ElementName="dtpEndDate" Path="SelectedDate" />
+                        </MultiBinding>
+                    </Button.CommandParameter>
+                </Button>
+            </Grid>
+        </GroupBox>
+        <DataGrid AutoGenerateColumns="False" IsReadOnly="True" Grid.Row="1" ScrollViewer.HorizontalScrollBarVisibility="Visible" Margin="4,4"
+                  ItemsSource="{Binding Path=DataContext.OrderDetailsNameModels, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+                  AlternatingRowBackground="LightBlue">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="条码" Binding="{Binding Path=ItemBarcode}" Width="150"/>
+                <DataGridTextColumn Header="品名" Binding="{Binding Path=ItemName}" Width="300"/>
+                <DataGridTextColumn Header="单价" Binding="{Binding Path=UnitPrice}" />
+                <DataGridTextColumn Header="数量" Binding="{Binding Path=ItemCount}" />
+                <DataGridTextColumn Header="折扣" Binding="{Binding Path=Discount}" />
+                <DataGridTextColumn Header="金额" Binding="{Binding Path=DetailPrice}" />
+                <DataGridTextColumn Header="状态" Binding="{Binding Path=IsValid, Converter={StaticResource STC}}" />
+                <DataGridTextColumn Header="日期" Binding="{Binding Path=DatailDate}" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

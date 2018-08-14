@@ -9,3 +9,4 @@ D:\vs2017pjs\OneShop\OneShop.Model\obj\Release\OneShop.Model.csproj.CoreCompileI
 D:\vs2017pjs\OneShop\OneShop.Model\obj\Release\OneShop.Model.csproj.CopyComplete
 D:\vs2017pjs\OneShop\OneShop.Model\obj\Release\OneShop.Model.dll
 D:\vs2017pjs\OneShop\OneShop.Model\obj\Release\OneShop.Model.pdb
+D:\vs2017pjs\OneShop\OneShop.Model\obj\Release\OneShop.Model.csprojAssemblyReference.cache

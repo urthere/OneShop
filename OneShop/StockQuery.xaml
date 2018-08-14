@@ -46,6 +46,7 @@
                 <DataGridTextColumn Header="最后修改时间" Binding="{Binding ModDate}"/>
             </DataGrid.Columns>
         </DataGrid>
+        <TextBlock TextAlignment="Right" Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.TotalPrice,StringFormat=合计：{0:C}}" Grid.Row="2"/>
         <StackPanel Visibility="Hidden" HorizontalAlignment="Right" Orientation="Horizontal" Grid.Row="2">
             <Button Content="&lt;&lt;首页" ToolTip="首页"></Button>
             <Button Content="&lt;前一页" ToolTip="前一页"></Button>

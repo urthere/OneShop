@@ -64,9 +64,14 @@ namespace OneShop.Model
                     p => p.ModDate,
                     true,
                     this.entity).ToList();
-                this.stocks.Clear();
-                list.ForEach(p => this.stocks.Add(p));
-                this.RaisePropertyChanged("Stocks");
+                if (list.Count > 0)
+                {
+                    this.stocks.Clear();
+                    this.TotalPrice = 0;
+                    list.ForEach(p => { this.stocks.Add(p); this.TotalPrice += (int)p.ItemCount * (decimal)p.ItemPrice; });
+                    this.RaisePropertyChanged("Stocks");
+                    this.RaisePropertyChanged("TotalPrice");
+                }                
             }
         }
 
@@ -151,6 +156,7 @@ namespace OneShop.Model
         public int PageSize { get; set; }
         public int PageIndex { get; set; }
         public int TotalPage { get => totalPage; set => totalPage = value; }
+        public decimal TotalPrice { get; private set; } = 0.0m;
 
         public void GetStock(string barcode)
         {

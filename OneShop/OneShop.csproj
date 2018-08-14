@@ -58,10 +58,15 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commands\OrderDetailsCommand.cs" />
+    <Compile Include="Convertoers\DateTimeConverter.cs" />
+    <Compile Include="Convertoers\StatusConverter.cs" />
     <Compile Include="NewStock.xaml.cs">
       <DependentUpon>NewStock.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Converters.cs" />
+    <Compile Include="Convertoers\Converters.cs" />
+    <Compile Include="OrderQuery.xaml.cs">
+      <DependentUpon>OrderQuery.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Receipt.xaml.cs">
       <DependentUpon>Receipt.xaml</DependentUpon>
     </Compile>
@@ -86,6 +91,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="OneShop.Style.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="OrderQuery.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

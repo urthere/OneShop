@@ -55,12 +55,14 @@
     <Compile Include="Discount.cs">
       <DependentUpon>OrderModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="NotifyBase.cs" />
     <Compile Include="Order.cs">
       <DependentUpon>OrderModel.tt</DependentUpon>
     </Compile>
     <Compile Include="OrderDetail.cs">
       <DependentUpon>OrderModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="OrderDetailsNameModel.cs" />
     <Compile Include="OrderModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

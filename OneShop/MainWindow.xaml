@@ -20,6 +20,7 @@
         <ToolBar Grid.Row="0">
             <Button Content="入库" Margin="0,0,0,1" VerticalAlignment="Bottom" Click="Button_Click"></Button>
             <Button Content="库存查询" Margin="5,0,0,1" Click="Button_Click_1"></Button>
+            <Button Content="库存查询" Margin="5,0,0,1" Click="Button_Click_2"></Button>
         </ToolBar>
         <TextBox x:Name="txtBarcode" Grid.Row="1" Style="{StaticResource stlBarcode}" HorizontalAlignment="Left" Margin="2,4,0,0" Width="380" Height="56" VerticalAlignment="Top" 
                  input:InputMethod.IsInputMethodEnabled="False" PreviewTextInput="txtBarcode_PreviewTextInput" PreviewKeyDown="txtBarcode_PreviewKeyDown"></TextBox>

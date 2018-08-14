@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OneShop.Model
 {
@@ -47,6 +45,42 @@ namespace OneShop.Model
                            .Take(pageSize);
                 return temp.AsQueryable();
             }
+        }
+
+        public static IList<OrderDetailsNameModel> QueryJoin(OneShopEntities context, DateTime startDate, DateTime endDate)
+        {
+            var b = context.OrderDetails.Join(
+                context.Stocks,
+                od => od.ItemBarcode,
+                s => s.ItemBarcode,
+                (od, s) => new {
+                    od.ItemBarcode,
+                    s.ItemName,
+                    od.UnitPrice,
+                    od.DetailPrice,
+                    od.Discount,
+                    od.DatailDate,
+                    od.ItemCount,
+                    od.IsValid
+                }).Where(
+                od =>  od.IsValid &&
+                od.DatailDate > startDate &&
+                od.DatailDate < endDate
+                ).ToList();
+
+            IList<OrderDetailsNameModel> tmp = new List<OrderDetailsNameModel>();
+            b.ForEach(x => tmp.Add(new OrderDetailsNameModel()
+            {
+                ItemBarcode = x.ItemBarcode,
+                ItemCount = x.ItemCount,
+                ItemName = x.ItemName,
+                UnitPrice = x.UnitPrice,
+                Discount = x.Discount,
+                DatailDate = x.DatailDate,
+                IsValid = x.IsValid,
+                DetailPrice = x.DetailPrice
+            }));
+            return tmp;
         }
     }
 }

@@ -10,11 +10,11 @@ none
 false
 TRACE
 D:\vs2017pjs\OneShop\OneShop\App.xaml
-52140961442
+6-1468239148
 
-11-24297455
+18-527693165
 17-1205630082
-MainWindow.xaml;NewStock.xaml;OneShop.Style.xaml;Receipt.xaml;StockQuery.xaml;
+MainWindow.xaml;NewStock.xaml;OneShop.Style.xaml;OrderQuery.xaml;Receipt.xaml;StockQuery.xaml;
 
-False
+True
 

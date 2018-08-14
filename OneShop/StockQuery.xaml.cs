@@ -17,10 +17,5 @@ namespace OneShop
             stockNewViewModel = new StockNewViewModel(App.DBConnectionString);
             this.DataContext = stockNewViewModel;
         }
-
-        private void txtBarcode_TextChanged(object sender, TextChangedEventArgs e)
-        {
-                   
-        }
     }
 }
