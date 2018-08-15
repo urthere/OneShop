@@ -4,7 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="库存查询" Height="450" Width="800">
+        Title="库存查询" Height="450" Width="800" >
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
@@ -33,8 +34,17 @@
                         CommandParameter="{Binding ElementName=txtBarcode, Path=Text}"></Button>
             </Grid>
         </GroupBox>
-        <DataGrid x:Name="dgStoks" Grid.Row="1" AutoGenerateColumns="False" AlternatingRowBackground="BurlyWood"  CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" ScrollViewer.VerticalScrollBarVisibility="Visible"
-                  ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.Stocks}">
+        <DataGrid x:Name="dgStoks" Grid.Row="1" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True"
+                  ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.Stocks}" Margin="4,0,88,0" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                <DataGrid.Resources>
+                    <Style TargetType="DataGridRow">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="LightBlue" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.Resources>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="条码" Binding="{Binding ItemBarcode}"/> 
                 <DataGridTextColumn Header="名称" Binding="{Binding ItemName}"/>
@@ -46,7 +56,7 @@
                 <DataGridTextColumn Header="最后修改时间" Binding="{Binding ModDate}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <TextBlock TextAlignment="Right" Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.TotalPrice,StringFormat=合计：{0:C}}" Grid.Row="2"/>
+        <TextBlock TextAlignment="Left" Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.TotalPrice,StringFormat=合计：{0:C}}" Grid.Row="2"/>
         <StackPanel Visibility="Hidden" HorizontalAlignment="Right" Orientation="Horizontal" Grid.Row="2">
             <Button Content="&lt;&lt;首页" ToolTip="首页"></Button>
             <Button Content="&lt;前一页" ToolTip="前一页"></Button>
@@ -62,4 +72,5 @@
             <Button Content="末页&gt;&gt;" ToolTip="末页"></Button>
         </StackPanel>
     </Grid>
+    </ScrollViewer>
 </Window>

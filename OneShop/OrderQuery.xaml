@@ -11,60 +11,63 @@
         <local:DateTimeConverter x:Key="DTC"></local:DateTimeConverter>
         <local:StatusConverter x:Key="STC"></local:StatusConverter>
     </Window.Resources>
-    <ScrollViewer>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-            </Grid.RowDefinitions>
-            <GroupBox Header="查询条件" Margin="4">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"></ColumnDefinition>
-                        <ColumnDefinition Width="3*"></ColumnDefinition>
-                        <ColumnDefinition Width="4*"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="开始日期" TextAlignment="Right" VerticalAlignment="Center" Margin="2"></TextBlock>
-                    <DatePicker Grid.Column="1" x:Name="dtpStartDate" SelectedDate="{x:Static sys:DateTime.Now}"/>
-                    <TextBlock Text="结束日期" Grid.Row="1" TextAlignment="Right" VerticalAlignment="Center" Margin="2"></TextBlock>
-                    <DatePicker Grid.Row="1" Grid.Column="1" x:Name="dtpEndDate" SelectedDate="{x:Static sys:DateTime.Now}"/>
-                    <Button Content="查询" Grid.Row="1" Grid.Column="2" Margin="150,2" Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.QueryDetailsCommand}">
-                        <Button.CommandParameter>
-                            <MultiBinding Converter="{StaticResource DTC}">
-                                <Binding ElementName="dtpStartDate" Path="SelectedDate" />
-                                <Binding ElementName="dtpEndDate" Path="SelectedDate" />
-                            </MultiBinding>
-                        </Button.CommandParameter>
-                    </Button>
-                </Grid>
-            </GroupBox>
-            <DataGrid AutoGenerateColumns="False" IsReadOnly="True" Grid.Row="1" Margin="4,4"
-                      ItemsSource="{Binding Path=DataContext.OrderDetailsNameModels, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
-                      AlternatingRowBackground="LightBlue">
-                <DataGrid.Resources>
-                    <local:BackgroundConverter x:Key="bgc"></local:BackgroundConverter>
-                    <Style TargetType="DataGridRow">
-                        <Setter Property="Background" Value="{Binding Path=IsValid, Converter={StaticResource bgc}}"/>
-                    </Style>
-                </DataGrid.Resources>
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="条码" Binding="{Binding Path=ItemBarcode}" Width="150"/>
-                    <DataGridTextColumn Header="品名" Binding="{Binding Path=ItemName}" Width="300"/>
-                    <DataGridTextColumn Header="单价" Binding="{Binding Path=UnitPrice}" />
-                    <DataGridTextColumn Header="数量" Binding="{Binding Path=ItemCount}" />
-                    <DataGridTextColumn Header="折扣" Binding="{Binding Path=Discount}" />
-                    <DataGridTextColumn Header="金额" Binding="{Binding Path=DetailPrice}" />
-                    <DataGridTextColumn Header="状态" Binding="{Binding Path=IsValid, Converter={StaticResource STC}}" />
-                    <DataGridTextColumn Header="日期" Binding="{Binding Path=DatailDate}" />
-                </DataGrid.Columns>
-            </DataGrid>
-            <TextBlock Text="{Binding Path=DataContext.TotalPrice, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, StringFormat=合计：{0:C}}" Grid.Row="2" TextAlignment="Right"/>
-        </Grid>
-    </ScrollViewer>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="4*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <GroupBox Header="查询条件" Margin="4">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                    <ColumnDefinition Width="4*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="开始日期" TextAlignment="Right" VerticalAlignment="Center" Margin="2"></TextBlock>
+                <DatePicker Grid.Column="1" x:Name="dtpStartDate" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                <TextBlock Text="结束日期" Grid.Row="1" TextAlignment="Right" VerticalAlignment="Center" Margin="2"></TextBlock>
+                <DatePicker Grid.Row="1" Grid.Column="1" x:Name="dtpEndDate" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                <Button Content="查询" Grid.Row="1" Grid.Column="2" Margin="153,2,0,2" Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.QueryDetailsCommand}" 
+                        HorizontalAlignment="Left" Width="80">
+                    <Button.CommandParameter>
+                        <MultiBinding Converter="{StaticResource DTC}">
+                            <Binding ElementName="dtpStartDate" Path="SelectedDate" />
+                            <Binding ElementName="dtpEndDate" Path="SelectedDate" />
+                        </MultiBinding>
+                    </Button.CommandParameter>
+                </Button>
+            </Grid>
+        </GroupBox>
+        <DataGrid AutoGenerateColumns="False" IsReadOnly="True" Grid.Row="1" CanUserAddRows="False" CanUserDeleteRows="False" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                      ItemsSource="{Binding Path=DataContext.OrderDetailsNameModels, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" Margin="4,0,48,0">
+            <DataGrid.Resources>
+                <local:BackgroundConverter x:Key="bgc"></local:BackgroundConverter>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="Background" Value="{Binding Path=IsValid, Converter={StaticResource bgc}}"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Background" Value="LightBlue"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="条码" Binding="{Binding Path=ItemBarcode}" Width="100"/>
+                <DataGridTextColumn Header="品名" Binding="{Binding Path=ItemName}" Width="300"/>
+                <DataGridTextColumn Header="单价" Binding="{Binding Path=UnitPrice}" />
+                <DataGridTextColumn Header="数量" Binding="{Binding Path=ItemCount}" />
+                <DataGridTextColumn Header="折扣" Binding="{Binding Path=Discount}" />
+                <DataGridTextColumn Header="金额" Binding="{Binding Path=DetailPrice}" />
+                <DataGridTextColumn Header="状态" Binding="{Binding Path=IsValid, Converter={StaticResource STC}}" />
+                <DataGridTextColumn Header="日期" Binding="{Binding Path=DatailDate}" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <TextBlock Text="{Binding Path=DataContext.TotalPrice, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, StringFormat=合计：{0:C}}" Grid.Row="2" TextAlignment="Left"/>
+    </Grid>
 </Window>

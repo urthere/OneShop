@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OneShop"
         mc:Ignorable="d"
-        Title="NewStock" Height="450" Width="800">
+        Title="入库" Height="450" Width="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
@@ -36,7 +36,7 @@
                 <!--<Label Grid.Column="0" Grid.Row="4">金额</Label>
                 <TextBox Grid.Column="1" Grid.Row="4" x:Name="txtAmount" Margin="2,2,500,2"></TextBox>-->
                 <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal">
-                    <Button  Content="添加到列表" Margin="80,2,2,2" Click="Button_Click"></Button>
+                    <Button  Content="添加到列表" Margin="80,2,2,2" Click="Button_Click" Visibility="Hidden"></Button>
                     <Button  Content="保存列表" Margin="50,2,2,2" Command="{Binding Path=AddNewStockCommand}"></Button>
                 </StackPanel>
             </Grid>
