@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Configuration;
 using OneShop.Model;
 
 namespace OneShop
@@ -40,9 +41,7 @@ namespace OneShop
             this.pgpTotal.Inlines.Add(new Run("合计：" + stockViewModel.OrderPrice.ToString("C") + "元"));
 
 
-            var page = ((IDocumentPaginatorSource)fdReceipt).DocumentPaginator;
-            page.PageSize = new Size(180, 1000);
-            new PrintDialog().PrintDocument(page, "text");
+            BeginPrint();
         }
 
         /// <summary>
@@ -64,6 +63,23 @@ namespace OneShop
             //imgQR.Height = 100;
             //set image source
             //imgQR.Source = newFormatedBitmapSource;
+        }
+
+        private void Window_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (System.Windows.Input.Key.Enter == e.Key)
+            {
+                BeginPrint();
+                this.Close();
+            }
+            e.Handled = true;
+        }
+
+        private void BeginPrint()
+        {
+            var page = ((IDocumentPaginatorSource)fdReceipt).DocumentPaginator;
+            page.PageSize = new Size(180, double.Parse(ConfigurationManager.AppSettings["PrintingHeight"]));
+            new PrintDialog().PrintDocument(page, "ReceiptPrinting");
         }
     }
 }

@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="库存查询" Height="450" Width="800" >
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
@@ -72,5 +71,4 @@
             <Button Content="末页&gt;&gt;" ToolTip="末页"></Button>
         </StackPanel>
     </Grid>
-    </ScrollViewer>
 </Window>

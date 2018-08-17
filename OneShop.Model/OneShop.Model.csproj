@@ -24,10 +24,11 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\Portable\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -56,6 +57,7 @@
       <DependentUpon>OrderModel.tt</DependentUpon>
     </Compile>
     <Compile Include="NotifyBase.cs" />
+    <Compile Include="OneLog.cs" />
     <Compile Include="Order.cs">
       <DependentUpon>OrderModel.tt</DependentUpon>
     </Compile>

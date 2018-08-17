@@ -31,7 +31,7 @@
     </Key>
     <Property Name="DetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="OrderID" Type="int" Nullable="false" />
-    <Property Name="ItemBarcode" Type="varchar" MaxLength="13" Nullable="false" />
+    <Property Name="ItemBarcode" Type="varchar" MaxLength="15" Nullable="false" />
     <Property Name="UnitPrice" Type="numeric" Precision="10" Scale="2" Nullable="false" />
     <Property Name="ItemCount" Type="int" Nullable="false" />
     <Property Name="Discount" Type="numeric" Precision="6" Scale="2" Nullable="false" />
@@ -44,21 +44,21 @@
     <Key>
       <PropertyRef Name="ItemBarcode" />
     </Key>
-    <Property Name="ItemBarcode" Type="varchar" MaxLength="13" Nullable="false" />
+    <Property Name="ItemBarcode" Type="varchar" MaxLength="15" Nullable="false" />
     <Property Name="ItemName" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="ItemCount" Type="int" />
     <Property Name="ItemPrice" Type="numeric" Precision="10" Scale="2" />
     <Property Name="StoredBy" Type="varchar" MaxLength="20" />
-    <Property Name="StoredDate" Type="datetime" Nullable="false" />
+    <Property Name="StoredDate" Type="datetime2" Precision="7" Nullable="false" />
     <Property Name="ModBy" Type="varchar" MaxLength="20" Nullable="false" />
-    <Property Name="ModDate" Type="datetime" Nullable="false" />
+    <Property Name="ModDate" Type="datetime2" Precision="7" Nullable="false" />
   </EntityType>
   <EntityType Name="StockHistory">
     <Key>
       <PropertyRef Name="HisID" />
     </Key>
     <Property Name="HisID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="ItemBarcode" Type="varchar" MaxLength="13" Nullable="false" />
+    <Property Name="ItemBarcode" Type="varchar" MaxLength="15" Nullable="false" />
     <Property Name="ItemName" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="ItemCount" Type="int" />
     <Property Name="ItemPrice" Type="numeric" Precision="10" Scale="2" />

@@ -76,7 +76,8 @@ namespace OneShop.Model
 
                         foreach (var item in objOrderDetail)
                         {
-                            item.OrderID = this.objOrder.OrderID;                            
+                            item.OrderID = this.objOrder.OrderID;
+                            item.IsValid = 0 > item.ItemCount ? false : true;
                             context.OrderDetails.Add(item);
                             var stockItem = context.Stocks.FirstOrDefault(x => x.ItemBarcode.Equals(item.ItemBarcode));
                             stockItem.ItemCount -= item.ItemCount;

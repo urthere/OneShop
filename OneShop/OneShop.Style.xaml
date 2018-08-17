@@ -6,7 +6,7 @@
         <Setter Property="FontWeight" Value="Bold" />
         <Setter Property="FontSize" Value="50" />
         <Setter Property="Margin" Value="4,4,470,80"/>
-        <Setter Property="MaxLength" Value="13"/>
+        <Setter Property="MaxLength" Value="20"/>
     </Style>
     
 </ResourceDictionary>

@@ -25,15 +25,6 @@ namespace OneShop
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             
-        }       
-
-        private void ClearTxtBox()
-        {
-            //this.txtAmount.Text = string.Empty;
-            this.txtBarcode.Text = string.Empty;
-            this.txtCount.Text = string.Empty;
-            this.txtName.Text = string.Empty;
-            this.txtUnitPrice.Text = string.Empty;            
         }
        
         private void dgStocks_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
@@ -51,6 +42,16 @@ namespace OneShop
             {
                 this.stockNewViewModel.GetStock(this.txtBarcode.Text.Trim());
             }    
+        }
+
+        private void ClearTextbox()
+        {
+
+        }
+
+        private void txtCount_GotFocus(object sender, RoutedEventArgs e)
+        {
+            this.txtCount.SelectAll();
         }
     }
 }

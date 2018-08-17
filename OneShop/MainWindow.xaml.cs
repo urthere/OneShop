@@ -1,9 +1,8 @@
 ﻿using System.Windows;
-using System.Windows.Controls;
 using System.Text.RegularExpressions;
-using System.Linq;
-using OneShop.Model;
 using System.Windows.Input;
+using System.Configuration;
+using OneShop.Model;
 
 namespace OneShop
 {
@@ -45,7 +44,8 @@ namespace OneShop
             }
 
             var receipt = new Receipt(this.stock);
-            //receipt.ShowDialog();
+            receipt.Height = double.Parse(ConfigurationManager.AppSettings["PrintingWindowHeight"]);
+            receipt.ShowDialog();
             this.stock.OrderPrice = 0;
             this.stock.ClearAll();
         }        
@@ -66,7 +66,7 @@ namespace OneShop
             }
         }
 
-        private void txtBarcode_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        private void txtBarcode_PreviewKeyDown(object sender, KeyEventArgs e)
         {            
             if (e.Key == Key.Enter)
             {
@@ -79,6 +79,8 @@ namespace OneShop
                 {
                     this.txtBarcode.Text = string.Empty;
                 }
+
+                e.Handled = true;
             }
         }
 

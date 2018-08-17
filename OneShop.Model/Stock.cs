@@ -19,8 +19,8 @@ namespace OneShop.Model
         public Nullable<int> ItemCount { get; set; }
         public Nullable<decimal> ItemPrice { get; set; }
         public string StoredBy { get; set; }
-        public System.DateTime StoredDate { get; set; }
+        public System.DateTime? StoredDate { get; set; }
         public string ModBy { get; set; }
-        public System.DateTime ModDate { get; set; }
+        public System.DateTime? ModDate { get; set; }
     }
 }

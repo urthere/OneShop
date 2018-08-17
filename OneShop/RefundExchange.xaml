@@ -11,32 +11,59 @@
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="9*"></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock Text="流水号：" VerticalAlignment="Center" Margin="20,2,300,2"/>
-        <TextBox x:Name="txtSerial" Margin="70,2,500,2" Text="" FontSize="26" Width="200"/>
-        <Button Content="查询" Margin="370,2,300,2" FontSize="26" Width="100" Command="{Binding Path=DataContext.QueryOrderCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
-                CommandParameter="{Binding ElementName=txtSerial, Path=Text}"/>
-        <DataGrid Grid.Row="1" Margin="2" AutoGenerateColumns="False" CanUserDeleteRows="False" IsReadOnly="True"
-                  ItemsSource="{Binding Path=DataContext.OrderDetailsNameModels, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <TextBox  x:Name="txtBarcode" Margin="20,4,30,4" Text="" FontSize="26" TextAlignment="Left" PreviewKeyDown="txtBarcode_PreviewKeyDown">
+            <TextBox.InputBindings>
+                <KeyBinding Command="{Binding}" Key="Enter"/>
+            </TextBox.InputBindings>
+        </TextBox>
+        <Button Grid.Column="2" Content="出票" Margin="20,4" FontSize="20"/>
+        <Button Grid.Column="1" Content="退货/款" Margin="20,4"  FontSize="20"/>
+        <DataGrid Grid.ColumnSpan="3" x:Name="grdDetail" Grid.Row="1" Margin="2,2,2,0" AutoGenerateColumns="False" CanUserAddRows="False">
+            <!--<DataGrid.Resources>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="Foreground" Value="{Binding Path=ItemCount,Converter={StaticResource bgcbi}}"/>
+                </Style>
+            </DataGrid.Resources>-->
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem >删除</MenuItem>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="条码" Binding="{Binding Path=ItemBarcode}" Width="150"/>
-                <DataGridTextColumn Header="品名" Binding="{Binding Path=ItemName}" Width="300"/>
-                <DataGridTextColumn Header="单价" Binding="{Binding Path=UnitPrice}" />
-                <DataGridTextColumn Header="数量" Binding="{Binding Path=ItemCount}" />
-                <DataGridTextColumn Header="折扣" Binding="{Binding Path=Discount}" />
-                <DataGridTextColumn Header="金额" Binding="{Binding Path=DetailPrice}" />
-                <DataGridTextColumn Header="状态" Binding="{Binding Path=IsValid, Converter={StaticResource STC}}" />
-                <DataGridTextColumn Header="日期" Binding="{Binding Path=DatailDate}" />
-                <DataGridTemplateColumn>
+                <DataGridTextColumn Header="名称" Binding="{Binding Path=ItemName}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="单价" Binding="{Binding Path=ItemPrice}" IsReadOnly="True"/>
+                <DataGridTemplateColumn Header="折扣">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Command="{Binding Path=DataContext.UpdateRefundCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" 
-                                    CommandParameter="{Binding Path=DetailID}" Content="退货" IsEnabled="{Binding Path=IsValid}"/>
+                            <ComboBox SelectedIndex="{Binding Path=Discount, Mode=TwoWay, UpdateSourceTrigger=LostFocus}">
+                                <ComboBoxItem Tag="1">100%</ComboBoxItem>
+                                <ComboBoxItem Tag="0.98">98%</ComboBoxItem>
+                                <ComboBoxItem Tag="0.95">95%</ComboBoxItem>
+                            </ComboBox>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="数量">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Path=ItemCount}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <TextBox Text="{Binding Path=ItemCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="金额" Binding="{Binding Path=DetailPrice, Mode=OneWay, StringFormat=0.00}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

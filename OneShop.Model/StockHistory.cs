@@ -20,6 +20,6 @@ namespace OneShop.Model
         public Nullable<int> ItemCount { get; set; }
         public Nullable<decimal> ItemPrice { get; set; }
         public string HistoryBy { get; set; }
-        public System.DateTime HistoryDate { get; set; }
+        public System.DateTime? HistoryDate { get; set; }
     }
 }

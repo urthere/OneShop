@@ -175,45 +175,89 @@ namespace OneShop.Model
             this.RaisePropertyChanged("Count");            
         }        
 
-        public void AddOrEditStocks(object stock)
+        public void AddOrEditStocks(object para)
         {
-            this.Stock.ModBy = "admin";
-            this.Stock.ModDate = System.DateTime.Now;
-            if (this.AddOrEditFlag)
+            try
             {
-                this.Stock.ItemCount += this.newCount;
-                entity.Entry(Stock).State = System.Data.Entity.EntityState.Modified;
+                var stock = new Stock()
+                {
+                    ModDate = DateTime.Now,
+                    ItemBarcode = Stock.ItemBarcode,
+                    ItemPrice = Stock.ItemPrice,
+                    ItemName = Stock.ItemName,
+                    ModBy = Stock.ModBy = "admin"
+                };
+                
+                if (this.AddOrEditFlag)
+                {
+                    this.Stock.ItemCount += this.newCount;
+                    entity.Entry(this.Stock).State = System.Data.Entity.EntityState.Modified;
+                }
+                else
+                {
+                    stock.StoredBy = this.Stock.StoredBy = "admin";
+                    stock.StoredDate = this.Stock.StoredDate = DateTime.Now;
+                    stock.ItemCount = this.Stock.ItemCount = this.newCount;
+                    entity.Stocks.Add(stock);
+                }
+                SaveStockHistory();
+                entity.SaveChanges();
+                
+                this.FindExistsStock();
+                this.Stock = new Stock();
+                this.RaisePropertyChanged("Barcode");
+                this.RaisePropertyChanged("Name");
+                this.RaisePropertyChanged("UnitPrice");
+                this.newCount = 0;
+                this.RaisePropertyChanged("NewCount");
             }
-            else
+            catch (System.Data.Entity.Validation.DbEntityValidationException ex)
             {
-                this.Stock.StoredBy = "admin";
-                this.Stock.StoredDate = System.DateTime.Now;
-                entity.Stocks.Add(Stock);
+                var errMsg = string.Empty;
+                foreach (var item in ex.EntityValidationErrors)
+                {
+                    foreach (var error in item.ValidationErrors)
+                    {
+                        errMsg += error.PropertyName + ":" + error.ErrorMessage + "\r\n";
+                    }
+                }
+
+                OneLog.WriteLog("ex:" + errMsg);
+                if (null != ex.InnerException)
+                {
+                    OneLog.WriteLog("ex:" + ex.InnerException.Message);
+                    OneLog.WriteLog("ex:" + ex.InnerException.StackTrace);
+                }
             }
-            SaveStockHistory();
-            entity.SaveChanges();
-
-
-            this.FindExistsStock();
-            this.Stock = new Stock();
-            this.RaisePropertyChanged("Barcode");
-            this.RaisePropertyChanged("Name");
-            this.RaisePropertyChanged("UnitPrice");
-            this.newCount = 0;
-            this.RaisePropertyChanged("NewCount");
+            catch (Exception ex1)
+            {
+                OneLog.WriteLog("ex1:" + ex1.Message);
+                OneLog.WriteLog("ex1:" + ex1.StackTrace);
+                if (null != ex1.InnerException)
+                {
+                    OneLog.WriteLog("ex1-inner:message:" + ex1.InnerException.Message);
+                    OneLog.WriteLog("ex1-inner:StackTrace" + ex1.InnerException.StackTrace);
+                    if (null != ex1.InnerException.InnerException)
+                    {
+                        OneLog.WriteLog("ex1-inner-inner:message" + ex1.InnerException.InnerException.Message);
+                        OneLog.WriteLog("ex1-inner-inner:StackTrace" + ex1.InnerException.InnerException.StackTrace);
+                    }
+                }                
+            }
         }
 
         private void SaveStockHistory()
         {
-            entity.StockHistories.Add(new StockHistory()
+            var hist = new StockHistory()
             {
                 ItemName = Stock.ItemName,
                 ItemCount = this.newCount,
                 ItemBarcode = Stock.ItemBarcode,
                 ItemPrice = Stock.ItemPrice,
                 HistoryBy = Stock.ModBy,
-                HistoryDate = Stock.ModDate
-            });
+                HistoryDate = DateTime.Now
+            };
+            entity.StockHistories.Add(hist);
         }
 
         private void FindExistsStock()

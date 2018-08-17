@@ -4,14 +4,14 @@
     <Key>
       <PropertyRef Name="ItemBarcode" />
     </Key>
-    <Property Name="ItemBarcode" Type="String" MaxLength="13" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ItemBarcode" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="ItemName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="ItemCount" Type="Int32" />
     <Property Name="ItemPrice" Type="Decimal" Precision="10" Scale="2" />
     <Property Name="StoredBy" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="StoredDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="StoredDate" Type="DateTime" Nullable="false" Precision="7" />
     <Property Name="ModBy" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="ModDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModDate" Type="DateTime" Nullable="false" Precision="7" />
   </EntityType>
   <EntityType Name="User">
     <Key>
@@ -41,7 +41,7 @@
     </Key>
     <Property Name="DetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="OrderID" Type="Int32" Nullable="false" />
-    <Property Name="ItemBarcode" Type="String" Nullable="false" MaxLength="13" FixedLength="false" Unicode="false" />
+    <Property Name="ItemBarcode" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
     <Property Name="ItemCount" Type="Int32" Nullable="false" />
     <Property Name="Discount" Type="Decimal" Nullable="false" Precision="6" Scale="2" />
     <Property Name="DetailPrice" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
@@ -80,7 +80,7 @@
       <PropertyRef Name="HisID" />
     </Key>
     <Property Name="HisID" Type="Int32" Nullable="false" />
-    <Property Name="ItemBarcode" Type="String" Nullable="false" MaxLength="13" FixedLength="false" Unicode="false" />
+    <Property Name="ItemBarcode" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
     <Property Name="ItemName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="ItemCount" Type="Int32" />
     <Property Name="ItemPrice" Type="Decimal" Precision="10" Scale="2" />

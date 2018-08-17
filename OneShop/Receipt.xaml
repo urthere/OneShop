@@ -4,8 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Receipt" Height="Auto" Width="200"
-        xmlns:sys="clr-namespace:System;assembly=mscorlib">
+        Title="Receipt" Width="200"
+        PreviewKeyDown="Window_PreviewKeyDown">
     <FlowDocument x:Name="fdReceipt" PagePadding="2">
         <Paragraph Margin="0,0,0,2" TextAlignment="Center" FontSize="14" FontFamily="Yahei">欢迎光临</Paragraph>
         <Paragraph Margin="0,0,0,2" TextAlignment="Center" FontSize="34" FontFamily="Yahei" FontWeight="Bold">NUNA</Paragraph>
