@@ -75,6 +75,9 @@
     <Compile Include="RefundExchange.xaml.cs">
       <DependentUpon>RefundExchange.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Sales.xaml.cs">
+      <DependentUpon>Sales.xaml</DependentUpon>
+    </Compile>
     <Compile Include="StockQuery.xaml.cs">
       <DependentUpon>StockQuery.xaml</DependentUpon>
     </Compile>
@@ -108,6 +111,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="RefundExchange.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Sales.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

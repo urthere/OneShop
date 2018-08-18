@@ -56,6 +56,7 @@ namespace OneShop.Model
                 (od, s) => new {
                     od.DetailID,
                     od.ItemBarcode,
+                    od.OrderID,
                     s.ItemName,
                     od.UnitPrice,
                     od.DetailPrice,
@@ -66,7 +67,22 @@ namespace OneShop.Model
                 }).Where(
                 od => od.DatailDate > startDate &&
                 od.DatailDate < endDate 
-                ).ToList();
+                ).Join(context.Orders,
+                od => od.OrderID,
+                o => o.OrderID,
+                (od, o) => new {
+                    od.DetailID,
+                    od.ItemBarcode,
+                    od.OrderID,
+                    od.ItemName,
+                    od.UnitPrice,
+                    od.DetailPrice,
+                    od.Discount,
+                    od.DatailDate,
+                    od.ItemCount,
+                    od.IsValid,
+                    o.Remarks
+                }).ToList();
 
             IList<OrderDetailsNameModel> tmp = new List<OrderDetailsNameModel>();
             b.ForEach(x => tmp.Add(new OrderDetailsNameModel()
@@ -79,7 +95,8 @@ namespace OneShop.Model
                 Discount = x.Discount,
                 DatailDate = x.DatailDate,
                 IsValid = x.IsValid,
-                DetailPrice = x.DetailPrice
+                DetailPrice = x.DetailPrice,
+                Remarks = x.Remarks
             }));
             return tmp;
         }

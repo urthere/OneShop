@@ -10,66 +10,23 @@
     <Window.Resources>
         <local:TotalConverters x:Key="tc"></local:TotalConverters>
         <local:BackgroundConverterByItemCount x:Key="bgcbi"></local:BackgroundConverterByItemCount>
+        <Style TargetType="{x:Type RadioButton}">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Margin" Value="2" />
+        </Style>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="9*"></RowDefinition>
         </Grid.RowDefinitions>
-        <ToolBar Grid.Row="0">
-            <Button Content="入库" Margin="0,0,0,1" VerticalAlignment="Bottom" Click="Button_Click"></Button>
-            <Button Content="库存查询" Margin="5,0,0,1" Click="Button_Click_1"></Button>
-            <Button Content="订单查询" Margin="5,0,0,1" Click="Button_Click_2"></Button>
-            <!--<Button Content="退换货" Margin="5,0,0,1" Click="Button_Click_3"></Button>-->
+        <ToolBar Grid.Row="0" FontSize="20">
+            <Button Content="销售" Margin="4" Click="Button_Click_4"></Button>
+            <Button Content="入库" Margin="4" Click="Button_Click"></Button>
+            <Button Content="库存查询" Margin="4" Click="Button_Click_1"></Button>
+            <Button Content="订单查询" Margin="4" Click="Button_Click_2"></Button>
         </ToolBar>
-        <TextBox x:Name="txtBarcode" Grid.Row="1" Style="{StaticResource stlBarcode}" HorizontalAlignment="Left" Margin="2,4,0,0" Width="440" Height="56" VerticalAlignment="Top" 
-                 input:InputMethod.IsInputMethodEnabled="False" PreviewTextInput="txtBarcode_PreviewTextInput" PreviewKeyDown="txtBarcode_PreviewKeyDown"></TextBox>
-        <TextBlock x:Name="tbTotal" Text="{Binding Path=OrderPrice,StringFormat={}{0:C}}" Grid.Row="1" Margin="450,4,140,0" FontSize="38" TextAlignment="Right"/>
-        <Button x:Name="btnPrint" Grid.Row="1" HorizontalAlignment="Right" Content="出单"  VerticalAlignment="Center" Height="56" Width="120" Padding="4,0,4,4" FontSize="44" Margin="0,0,10,0" Click="btnPrint_Click"/>
-        <DataGrid x:Name="grdDetail" Grid.Row="2" Margin="2,2,2,0" AutoGenerateColumns="False" CanUserAddRows="False">
-            <!--<DataGrid.Resources>
-                <Style TargetType="DataGridRow">
-                    <Setter Property="Foreground" Value="{Binding Path=ItemCount,Converter={StaticResource bgcbi}}"/>
-                </Style>
-            </DataGrid.Resources>-->
-            <DataGrid.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Click="MenuItem_Click">删除</MenuItem>
-                </ContextMenu>                
-            </DataGrid.ContextMenu>
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="名称" Binding="{Binding Path=ItemName}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="单价" Binding="{Binding Path=ItemPrice}" IsReadOnly="True"/>
-                <DataGridTemplateColumn Header="折扣">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <ComboBox SelectedIndex="{Binding Path=Discount, Mode=TwoWay, UpdateSourceTrigger=LostFocus}">
-                                <ComboBoxItem Tag="1">100%</ComboBoxItem>
-                                <ComboBoxItem Tag="0.98">98%</ComboBoxItem>
-                                <ComboBoxItem Tag="0.95">95%</ComboBoxItem>
-                            </ComboBox>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="数量">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Path=ItemCount}" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                    <DataGridTemplateColumn.CellEditingTemplate>
-                        <DataTemplate>
-                            <TextBox Text="{Binding Path=ItemCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellEditingTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTextColumn Header="金额" Binding="{Binding Path=DetailPrice, Mode=OneWay, StringFormat=0.00}"></DataGridTextColumn>
-            </DataGrid.Columns>
-        </DataGrid>
-        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
-            <TextBlock></TextBlock>
-        </StackPanel>
+        <Grid x:Name="gridWorkArea" Grid.Row="1" Margin="2"></Grid>
     </Grid>
 </Window>

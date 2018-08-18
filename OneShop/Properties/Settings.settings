@@ -1,7 +1,27 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="OneShop.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="Sales" Type="System.String" Scope="User">
+      <Value Profile="(Default)">销售订单</Value>
+    </Setting>
+    <Setting Name="MainTitle" Type="System.String" Scope="User">
+      <Value Profile="(Default)">One Shop</Value>
+    </Setting>
+    <Setting Name="StockIn" Type="System.String" Scope="User">
+      <Value Profile="(Default)">入库</Value>
+    </Setting>
+    <Setting Name="OrderQuery" Type="System.String" Scope="User">
+      <Value Profile="(Default)">订单查询</Value>
+    </Setting>
+    <Setting Name="StockQuery" Type="System.String" Scope="User">
+      <Value Profile="(Default)">库存查询</Value>
+    </Setting>
+    <Setting Name="PrintingHeight" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1000</Value>
+    </Setting>
+    <Setting Name="PrintingWindowHeight" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">100</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>

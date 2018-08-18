@@ -12,4 +12,3 @@ D:\vs2017pjs\OneShop\OneShop.Model\obj\Release\OneShop.Model.pdb
 D:\vs2017pjs\OneShop\Portable\OneShop.Model.dll.config
 D:\vs2017pjs\OneShop\Portable\OneShop.Model.dll
 D:\vs2017pjs\OneShop\Portable\OneShop.Model.pdb
-D:\vs2017pjs\OneShop\OneShop.Model\obj\Release\OneShop.Model.csprojAssemblyReference.cache

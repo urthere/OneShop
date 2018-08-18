@@ -1,16 +1,14 @@
 ﻿using System.Windows;
-using System.Linq;
-using System.Windows.Data;
 using OneShop.Model;
-using System.Collections;
 using System.Windows.Input;
+using System.Windows.Controls;
 
 namespace OneShop
 {
     /// <summary>
     /// Interaction logic for NewStock.xaml
     /// </summary>
-    public partial class NewStock : Window
+    public partial class NewStock : UserControl
     {
         private StockNewViewModel stockNewViewModel;
         public NewStock()

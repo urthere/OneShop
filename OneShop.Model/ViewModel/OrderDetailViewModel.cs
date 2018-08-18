@@ -55,7 +55,7 @@ namespace OneShop.Model
             }
         }
 
-        public void SaveOrder(out string stockNotEnough)
+        public void SaveOrder(out string stockNotEnough, string payMethod)
         {
             stockNotEnough = string.Empty;
 
@@ -70,6 +70,7 @@ namespace OneShop.Model
                         this.objOrder.SerialNumber = this.GenerateSerialNumber();
                         this.objOrder.OrderDate = DateTime.Now;
                         this.objOrder.ModBy = DateTime.Now;
+                        this.objOrder.Remarks = payMethod;
 
                         context.Orders.Add(this.objOrder);
                         context.SaveChanges();
@@ -89,7 +90,7 @@ namespace OneShop.Model
                                 return;
                             }
                             context.Set<Stock>().Attach(stockItem);
-                            context.Entry(stockItem).State = System.Data.Entity.EntityState.Modified;                            
+                            context.Entry(stockItem).State = System.Data.Entity.EntityState.Modified;
                         }
                         context.SaveChanges();
 

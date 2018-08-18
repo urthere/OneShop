@@ -4,7 +4,6 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Configuration;
 using OneShop.Model;
 
 namespace OneShop
@@ -67,18 +66,22 @@ namespace OneShop
 
         private void Window_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
+            e.Handled = true;
             if (System.Windows.Input.Key.Enter == e.Key)
             {
                 BeginPrint();
                 this.Close();
             }
-            e.Handled = true;
+            if (System.Windows.Input.Key.Escape == e.Key)
+            {
+                this.Close();
+            }
         }
 
         private void BeginPrint()
         {
             var page = ((IDocumentPaginatorSource)fdReceipt).DocumentPaginator;
-            page.PageSize = new Size(180, double.Parse(ConfigurationManager.AppSettings["PrintingHeight"]));
+            page.PageSize = new Size(180, Properties.Settings.Default.PrintingHeight);
             new PrintDialog().PrintDocument(page, "ReceiptPrinting");
         }
     }

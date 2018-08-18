@@ -1,5 +1,4 @@
-﻿using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using OneShop.Model;
 
 namespace OneShop
@@ -7,7 +6,7 @@ namespace OneShop
     /// <summary>
     /// Interaction logic for StockQuery.xaml
     /// </summary>
-    public partial class StockQuery : Window
+    public partial class StockQuery : UserControl
     {
         private StockNewViewModel stockNewViewModel;
         public StockQuery()

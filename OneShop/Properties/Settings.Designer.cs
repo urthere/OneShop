@@ -22,5 +22,89 @@ namespace OneShop.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("销售订单")]
+        public string Sales {
+            get {
+                return ((string)(this["Sales"]));
+            }
+            set {
+                this["Sales"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("One Shop")]
+        public string MainTitle {
+            get {
+                return ((string)(this["MainTitle"]));
+            }
+            set {
+                this["MainTitle"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("入库")]
+        public string StockIn {
+            get {
+                return ((string)(this["StockIn"]));
+            }
+            set {
+                this["StockIn"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("订单查询")]
+        public string OrderQuery {
+            get {
+                return ((string)(this["OrderQuery"]));
+            }
+            set {
+                this["OrderQuery"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("库存查询")]
+        public string StockQuery {
+            get {
+                return ((string)(this["StockQuery"]));
+            }
+            set {
+                this["StockQuery"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1000")]
+        public int PrintingHeight {
+            get {
+                return ((int)(this["PrintingHeight"]));
+            }
+            set {
+                this["PrintingHeight"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        public double PrintingWindowHeight {
+            get {
+                return ((double)(this["PrintingWindowHeight"]));
+            }
+            set {
+                this["PrintingWindowHeight"] = value;
+            }
+        }
     }
 }

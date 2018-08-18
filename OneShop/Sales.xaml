@@ -1,0 +1,79 @@
+﻿<UserControl x:Class="OneShop.Sales"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:OneShop"
+             xmlns:input="clr-namespace:System.Windows.Input;assembly=PresentationCore"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <local:TotalConverters x:Key="tc"></local:TotalConverters>
+        <local:BackgroundConverterByItemCount x:Key="bgcbi"></local:BackgroundConverterByItemCount>
+        <Style TargetType="{x:Type RadioButton}">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Margin" Value="2" />
+        </Style>
+    </UserControl.Resources>
+    <Grid x:Name="gridMain">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>            
+        </Grid.RowDefinitions>        
+        <TextBox x:Name="txtBarcode" Grid.Row="1" Style="{StaticResource stlBarcode}" HorizontalAlignment="Left" Margin="2,4,0,0" Width="440" Height="56" VerticalAlignment="Top" 
+                 input:InputMethod.IsInputMethodEnabled="False" PreviewTextInput="txtBarcode_PreviewTextInput" PreviewKeyDown="txtBarcode_PreviewKeyDown"></TextBox>
+        <TextBlock x:Name="tbTotal" Text="{Binding Path=OrderPrice,StringFormat={}{0:C}}" Grid.Row="1" Margin="450,4,140,0" FontSize="38" TextAlignment="Right"/>
+        <Button x:Name="btnPrint" Grid.Row="1" HorizontalAlignment="Right" Content="出单"  VerticalAlignment="Center" Height="56" Width="120" Padding="4,0,4,4" FontSize="44" Margin="0,0,10,0" Click="btnPrint_Click"/>
+        <Grid Grid.Row="2" Margin="2,10,0,0" FlowDirection="LeftToRight" Height="Auto" ShowGridLines="False">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="7*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <DataGrid x:Name="grdDetail" AutoGenerateColumns="False" CanUserAddRows="False">
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Click="MenuItem_Click" Header="删除"></MenuItem>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="名称" Binding="{Binding Path=ItemName}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="单价" Binding="{Binding Path=ItemPrice}" IsReadOnly="True"/>
+                    <DataGridTemplateColumn Header="折扣">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ComboBox SelectedIndex="{Binding Path=Discount, Mode=TwoWay, UpdateSourceTrigger=LostFocus}">
+                                    <ComboBoxItem Tag="1">100%</ComboBoxItem>
+                                    <ComboBoxItem Tag="0.98">98%</ComboBoxItem>
+                                    <ComboBoxItem Tag="0.95">95%</ComboBoxItem>
+                                </ComboBox>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="数量">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=ItemCount}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Path=ItemCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="金额" Binding="{Binding Path=DetailPrice, Mode=OneWay, StringFormat=0.00}"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <StackPanel Grid.Column="1" HorizontalAlignment="Center">
+                <RadioButton GroupName="rdbGroup" x:Name="rdbAlipay" IsChecked="True">支付宝</RadioButton>
+                <RadioButton GroupName="rdbGroup" x:Name="rdbWechatPay">微信</RadioButton>
+                <RadioButton GroupName="rdbGroup" x:Name="rdbCash">现金</RadioButton>
+            </StackPanel>
+        </Grid>
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
+            <TextBlock></TextBlock>
+        </StackPanel>
+    </Grid>
+</UserControl>
