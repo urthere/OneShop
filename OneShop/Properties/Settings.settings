@@ -23,5 +23,11 @@
     <Setting Name="PrintingWindowHeight" Type="System.Double" Scope="User">
       <Value Profile="(Default)">100</Value>
     </Setting>
+    <Setting Name="PrintEnable" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="DailyReport" Type="System.String" Scope="User">
+      <Value Profile="(Default)">销售日报</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

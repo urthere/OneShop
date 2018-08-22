@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="OneShop.DailyReport"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:OneShop">
+    <Canvas x:Name="canChart">
+        <Button Content="查询" Canvas.Top="100" Canvas.Left="100" Width="120" Height="32" Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}, Path=DataContext.GetDailySummaryReport}" />
+        <Line Stroke="Black" StrokeThickness="3" X1="40" Y1="600" X2="40" Y2="100" />
+        <Line Stroke="Black" StrokeThickness="3" X1="40" Y1="600" X2="680" Y2="600" />
+        <Polygon  Stroke="Black" StrokeThickness="3" Points="38,100 40,96 42,100"/>
+        <Polygon  Stroke="Black" StrokeThickness="3" Points="680,598 680,602 684,600"/>
+        <TextBlock Canvas.Left="18" Canvas.Top="590" Text="O" FontStyle="Italic" FontSize="20"></TextBlock>
+        <TextBlock Canvas.Left="10" Canvas.Top="60" Text="销售额" FontStyle="Italic" FontSize="20"></TextBlock>
+    </Canvas>
+</UserControl>

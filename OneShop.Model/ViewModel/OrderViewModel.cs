@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Linq.Expressions;
 using System.Windows.Input;
+using System.Data.Entity;
 
 namespace OneShop.Model
 {
@@ -16,6 +14,7 @@ namespace OneShop.Model
         private IList<OrderDetailsNameModel> orderDetailsNameModel;
         private string conn;
         private int totalCount;
+        private decimal dailyMax;
 
         public OrderViewModel(string con)
         {
@@ -25,11 +24,14 @@ namespace OneShop.Model
             QueryDetailsCommand = new DelegateCommand(this.GetOrderDetails, this.IsValid);
             QueryOrderCommand = new DelegateCommand(this.GetOrder, this.IsValid);
             UpdateRefundCommand = new DelegateCommand(this.RefundDetail, this.CanRefund);
+            GetDailySummaryReport = new DelegateCommand(this.GetDailySummary, this.IsValid);
         }
         
         public ICommand QueryDetailsCommand { get; set; }
         public ICommand QueryOrderCommand { get; set; }
         public ICommand UpdateRefundCommand { get; set; }
+
+        public ICommand GetDailySummaryReport { get; set; }
 
         private void GetOrder(object para)
         {
@@ -54,6 +56,39 @@ namespace OneShop.Model
                 RaisePropertyChanged("OrderDetailsNameModels");
                 RaisePropertyChanged("TotalPrice");
             }
+        }
+
+        private void GetDailySummary(object para)
+        {
+            var firstDay = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            try
+            {
+                using (var context = new OneShopEntities())
+                {
+                    context.Database.Connection.ConnectionString = this.conn;
+
+                    var sum = context.OrderDetails
+                        .GroupBy(x => DbFunctions.TruncateTime(x.DatailDate))
+                        .Select(f => new { SumDate = f.Key, Rows = f.Count(), DailySum = f.Sum(w => w.DetailPrice) })
+                        .Where(w => w.SumDate > firstDay && w.SumDate < DateTime.Now);
+                    var list = sum.ToList();
+                    this.dailyMax = list.Max(x => x.DailySum) + 500m;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public decimal Days
+        {
+            get => DateTime.Now.Day;
+        }
+
+        public decimal DailyMax
+        {
+            get => this.dailyMax;
         }
 
         private void RefundDetail(object para)

@@ -106,5 +106,29 @@ namespace OneShop.Properties {
                 this["PrintingWindowHeight"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool PrintEnable {
+            get {
+                return ((bool)(this["PrintEnable"]));
+            }
+            set {
+                this["PrintEnable"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("销售日报")]
+        public string DailyReport {
+            get {
+                return ((string)(this["DailyReport"]));
+            }
+            set {
+                this["DailyReport"] = value;
+            }
+        }
     }
 }

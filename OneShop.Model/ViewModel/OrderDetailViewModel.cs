@@ -46,7 +46,7 @@ namespace OneShop.Model
                 {
                     ItemBarcode = item.ItemBarcode,
                     ItemCount = (int)item.ItemCount,
-                    DetailPrice = (int)item.ItemCount * (decimal)item.ItemPrice,
+                    DetailPrice = item.DetailPrice,
                     IsValid = true,
                     DatailDate = DateTime.Now,
                     UnitPrice = (decimal)item.ItemPrice,

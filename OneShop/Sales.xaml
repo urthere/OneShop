@@ -44,9 +44,9 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <ComboBox SelectedIndex="{Binding Path=Discount, Mode=TwoWay, UpdateSourceTrigger=LostFocus}">
-                                    <ComboBoxItem Tag="1">100%</ComboBoxItem>
-                                    <ComboBoxItem Tag="0.98">98%</ComboBoxItem>
-                                    <ComboBoxItem Tag="0.95">95%</ComboBoxItem>
+                                    <ComboBoxItem>100%</ComboBoxItem>
+                                    <ComboBoxItem>98%</ComboBoxItem>
+                                    <ComboBoxItem>95%</ComboBoxItem>
                                 </ComboBox>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>

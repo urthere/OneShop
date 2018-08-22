@@ -9,6 +9,7 @@
     <UserControl.Resources>
         <local:DateTimeConverter x:Key="DTC"></local:DateTimeConverter>
         <local:StatusConverter x:Key="STC"></local:StatusConverter>
+        <local:DiscountConverter x:Key="DisTC"></local:DiscountConverter>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -61,13 +62,13 @@
                 <DataGridTextColumn Header="品名" Binding="{Binding Path=ItemName}" Width="300"/>
                 <DataGridTextColumn Header="单价" Binding="{Binding Path=UnitPrice}" />
                 <DataGridTextColumn Header="数量" Binding="{Binding Path=ItemCount}" />
-                <DataGridTextColumn Header="折扣" Binding="{Binding Path=Discount}" />
+                <DataGridTextColumn Header="折扣" Binding="{Binding Path=Discount, Converter={StaticResource DisTC}}" />
                 <DataGridTextColumn Header="金额" Binding="{Binding Path=DetailPrice}" />
                 <DataGridTextColumn Header="状态" Binding="{Binding Path=IsValid, Converter={StaticResource STC}}" />
                 <DataGridTextColumn Header="日期" Binding="{Binding Path=DatailDate}" />
                 <DataGridTextColumn Header="备注" Binding="{Binding Path=Remarks}" />
             </DataGrid.Columns>
         </DataGrid>
-        <TextBlock Text="{Binding Path=DataContext.TotalPrice, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, StringFormat=合计：{0:C}}" Grid.Row="2" TextAlignment="Left"/>
+        <TextBlock Text="{Binding Path=DataContext.TotalPrice, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}, StringFormat=合计：{0:C}}" Grid.Row="2" TextAlignment="Left"/>
     </Grid>
 </UserControl>

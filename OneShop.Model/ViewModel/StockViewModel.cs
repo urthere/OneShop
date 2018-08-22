@@ -64,7 +64,7 @@ namespace OneShop.Model
 
         private void CalculateDetailPrice()
         {
-            this.detailPrice = itemSoldCount * RegDiscount(this.discount) * (decimal)stock.ItemPrice;
+            this.detailPrice = Math.Round(itemSoldCount * RegDiscount(this.discount) * (decimal)stock.ItemPrice, MidpointRounding.AwayFromZero);
             RaisePropertyChanged("DetailPrice");
         }
 
@@ -75,7 +75,8 @@ namespace OneShop.Model
                 if (0 == detailPrice)
                 {
                     this.detailPrice = itemSoldCount * RegDiscount(this.discount) * (decimal)stock.ItemPrice;
-                    this.detailPrice = Math.Round(this.detailPrice, 2, MidpointRounding.AwayFromZero);
+                    this.detailPrice = Math.Round(this.detailPrice, MidpointRounding.AwayFromZero);
+                    RaisePropertyChanged("DetailPrice");
                 }
                 return this.detailPrice;
             }

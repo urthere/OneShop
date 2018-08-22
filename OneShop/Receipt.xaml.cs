@@ -38,8 +38,7 @@ namespace OneShop
 
             this.tbDetails.RowGroups.Add(trg);
             this.pgpTotal.Inlines.Add(new Run("合计：" + stockViewModel.OrderPrice.ToString("C") + "元"));
-
-
+            
             BeginPrint();
         }
 
@@ -80,9 +79,12 @@ namespace OneShop
 
         private void BeginPrint()
         {
-            var page = ((IDocumentPaginatorSource)fdReceipt).DocumentPaginator;
-            page.PageSize = new Size(180, Properties.Settings.Default.PrintingHeight);
-            new PrintDialog().PrintDocument(page, "ReceiptPrinting");
+            if (Properties.Settings.Default.PrintEnable)
+            {
+                var page = ((IDocumentPaginatorSource)fdReceipt).DocumentPaginator;
+                page.PageSize = new Size(180, Properties.Settings.Default.PrintingHeight);
+                new PrintDialog().PrintDocument(page, "ReceiptPrinting");
+            }
         }
     }
 }

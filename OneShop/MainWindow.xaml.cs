@@ -41,5 +41,10 @@ namespace OneShop
             gridWorkArea.Children.Clear();
             gridWorkArea.Children.Add(child as UserControl);
         }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            CreateWindow(typeof(DailyReport), Properties.Settings.Default.DailyReport);
+        }
     }
 }

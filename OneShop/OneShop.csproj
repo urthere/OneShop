@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <IntermediateOutputPath>C:\Users\will\AppData\Local\Temp\vsCC4D.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -33,6 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <IntermediateOutputPath>C:\Users\will\AppData\Local\Temp\vsCC4D.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
@@ -61,7 +63,11 @@
     <Compile Include="Converters\BackgroundConverter.cs" />
     <Compile Include="Converters\BackgroundConverterByItemCount.cs" />
     <Compile Include="Converters\DateTimeConverter.cs" />
+    <Compile Include="Converters\DiscountConverter.cs" />
     <Compile Include="Converters\StatusConverter.cs" />
+    <Compile Include="DailyReport.xaml.cs">
+      <DependentUpon>DailyReport.xaml</DependentUpon>
+    </Compile>
     <Compile Include="NewStock.xaml.cs">
       <DependentUpon>NewStock.xaml</DependentUpon>
     </Compile>
@@ -81,6 +87,10 @@
     <Compile Include="StockQuery.xaml.cs">
       <DependentUpon>StockQuery.xaml</DependentUpon>
     </Compile>
+    <Page Include="DailyReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
