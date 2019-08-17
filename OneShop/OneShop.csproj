@@ -28,7 +28,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\Portable\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
@@ -68,6 +68,12 @@
     <Compile Include="DailyReport.xaml.cs">
       <DependentUpon>DailyReport.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DiscountMaintance.xaml.cs">
+      <DependentUpon>DiscountMaintance.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DiscountMaintenance.xaml.cs">
+      <DependentUpon>DiscountMaintenance.xaml</DependentUpon>
+    </Compile>
     <Compile Include="NewStock.xaml.cs">
       <DependentUpon>NewStock.xaml</DependentUpon>
     </Compile>
@@ -84,10 +90,21 @@
     <Compile Include="Sales.xaml.cs">
       <DependentUpon>Sales.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Statistical.xaml.cs">
+      <DependentUpon>Statistical.xaml</DependentUpon>
+    </Compile>
     <Compile Include="StockQuery.xaml.cs">
       <DependentUpon>StockQuery.xaml</DependentUpon>
     </Compile>
     <Page Include="DailyReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DiscountMaintance.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DiscountMaintenance.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -125,6 +142,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Sales.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Statistical.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -33,7 +33,7 @@
                 <DatePicker Grid.Column="1" x:Name="dtpStartDate" SelectedDate="{x:Static sys:DateTime.Now}"/>
                 <TextBlock Text="结束日期" Grid.Row="1" TextAlignment="Right" VerticalAlignment="Center" Margin="2"></TextBlock>
                 <DatePicker Grid.Row="1" Grid.Column="1" x:Name="dtpEndDate" SelectedDate="{x:Static sys:DateTime.Now}"/>
-                <Button Content="查询" Grid.Row="1" Grid.Column="2" Margin="153,2,0,2" Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.QueryDetailsCommand}" 
+                <Button Content="查询" Grid.Row="1" Grid.Column="2" Margin="71,2,0,2" Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.QueryDetailsCommand}" 
                         HorizontalAlignment="Left" Width="80">
                     <Button.CommandParameter>
                         <MultiBinding Converter="{StaticResource DTC}">
@@ -44,7 +44,7 @@
                 </Button>
             </Grid>
         </GroupBox>
-        <DataGrid AutoGenerateColumns="False" IsReadOnly="True" Grid.Row="1" CanUserAddRows="False" CanUserDeleteRows="False" ScrollViewer.VerticalScrollBarVisibility="Auto"
+        <DataGrid AutoGenerateColumns="False" HorizontalAlignment="Left" IsReadOnly="True" Grid.Row="1" CanUserAddRows="False" CanUserDeleteRows="False" ScrollViewer.VerticalScrollBarVisibility="Auto"
                       ItemsSource="{Binding Path=DataContext.OrderDetailsNameModels, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}" Margin="4,0,48,0">
             <DataGrid.Resources>
                 <local:BackgroundConverter x:Key="bgc"></local:BackgroundConverter>
@@ -69,6 +69,11 @@
                 <DataGridTextColumn Header="备注" Binding="{Binding Path=Remarks}" />
             </DataGrid.Columns>
         </DataGrid>
-        <TextBlock Text="{Binding Path=DataContext.TotalPrice, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}, StringFormat=合计：{0:C}}" Grid.Row="2" TextAlignment="Left"/>
+        <StackPanel Grid.Row="2">
+            <TextBlock Text="{Binding Path=DataContext.TotalPriceAlipay, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}, StringFormat=支付宝合计：{0:C}}" Grid.Row="2" TextAlignment="Left"/>
+            <TextBlock Text="{Binding Path=DataContext.TotalPriceWechat, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}, StringFormat=微信合计：{0:C}}" TextAlignment="Left"/>
+            <TextBlock Text="{Binding Path=DataContext.TotalPriceCash, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}, StringFormat=现金合计：{0:C}}" TextAlignment="Left"/>
+            <TextBlock Text="{Binding Path=DataContext.TotalPrice, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}, StringFormat=总计：{0:C}}" TextAlignment="Left"/>
+        </StackPanel>
     </Grid>
 </UserControl>

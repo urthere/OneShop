@@ -25,12 +25,13 @@ namespace OneShop.Model
             QueryOrderCommand = new DelegateCommand(this.GetOrder, this.IsValid);
             UpdateRefundCommand = new DelegateCommand(this.RefundDetail, this.CanRefund);
             GetDailySummaryReport = new DelegateCommand(this.GetDailySummary, this.IsValid);
+            QueryOrderSumCommand = new DelegateCommand(this.GetOrderSum, IsValid);
         }
-        
+
         public ICommand QueryDetailsCommand { get; set; }
         public ICommand QueryOrderCommand { get; set; }
         public ICommand UpdateRefundCommand { get; set; }
-
+        public ICommand QueryOrderSumCommand { get; set; }
         public ICommand GetDailySummaryReport { get; set; }
 
         private void GetOrder(object para)
@@ -38,9 +39,37 @@ namespace OneShop.Model
             using (var context = new OneShopEntities())
             {
                 context.Database.Connection.ConnectionString = this.conn;
-                orderDetailsNameModel = Common<OrderDetailsNameModel>.QueryJoin(context, para.ToString());
+                orderDetailsNameModel = Common<OrderDetailsNameModel>.QueryJoin(context, para.ToString());                
+            }
+            RaisePropertyChanged("OrderDetailsNameModels");
+            RaisePropertyChanged("TotalPrice");
+            RaisePropertyChanged("TotalPriceWechat");
+            RaisePropertyChanged("TotalPriceAlipay");
+            RaisePropertyChanged("TotalPriceCash");
+        }
+
+        private void GetOrderSum(object para)
+        {
+            var dates = para.ToString().Split('|');
+            var startDate = DateTime.Parse(dates[0]).Date;
+            var endDate = DateTime.Parse(dates[1]).Date.AddDays(1);
+            try
+            {
+                using (var context = new OneShopEntities())
+                {
+                    context.Database.Connection.ConnectionString = this.conn;
+                    orderDetailsNameModel = Common<OrderDetailsNameModel>.QuerySumJoin(context, startDate, endDate);
+                }
                 RaisePropertyChanged("OrderDetailsNameModels");
                 RaisePropertyChanged("TotalPrice");
+                RaisePropertyChanged("TotalPriceWechat");
+                RaisePropertyChanged("TotalPriceAlipay");
+                RaisePropertyChanged("TotalPriceCash");
+            }
+            catch (Exception ex)
+            {
+
+                throw;
             }
         }
 
@@ -49,13 +78,25 @@ namespace OneShop.Model
             var dates = para.ToString().Split('|');
             var startDate = DateTime.Parse(dates[0]).Date;
             var endDate = DateTime.Parse(dates[1]).Date.AddDays(1);
-            using (var context = new OneShopEntities())
+            try
             {
-                context.Database.Connection.ConnectionString = this.conn;
-                orderDetailsNameModel = Common<OrderDetailsNameModel>.QueryJoin(context, startDate, endDate);
+                using (var context = new OneShopEntities())
+                {
+                    context.Database.Connection.ConnectionString = this.conn;
+                    orderDetailsNameModel = Common<OrderDetailsNameModel>.QueryJoin(context, startDate, endDate);
+                }
                 RaisePropertyChanged("OrderDetailsNameModels");
                 RaisePropertyChanged("TotalPrice");
+                RaisePropertyChanged("TotalPriceWechat");
+                RaisePropertyChanged("TotalPriceAlipay");
+                RaisePropertyChanged("TotalPriceCash");
             }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+            
         }
 
         private void GetDailySummary(object para)
@@ -110,9 +151,9 @@ namespace OneShop.Model
                         context.Orders.Attach(order);
                         context.OrderDetails.Attach(details);
                         context.Stocks.Attach(stock);
-                        context.Entry(order).State = System.Data.Entity.EntityState.Modified;
-                        context.Entry(details).State = System.Data.Entity.EntityState.Modified;
-                        context.Entry(stock).State = System.Data.Entity.EntityState.Modified;
+                        context.Entry(order).State = EntityState.Modified;
+                        context.Entry(details).State = EntityState.Modified;
+                        context.Entry(stock).State = EntityState.Modified;
                         context.SaveChanges();
 
                         tran.Commit();
@@ -122,7 +163,7 @@ namespace OneShop.Model
                     catch (Exception)
                     {
                         tran.Rollback();
-                    }                    
+                    }
                 }
             }
         }
@@ -135,7 +176,7 @@ namespace OneShop.Model
             set => this.totalCount = value;
         }
 
-        public IList<OrderDetailsNameModel> OrderDetailsNameModels { get => this.orderDetailsNameModel; }
+        public IList<OrderDetailsNameModel> OrderDetailsNameModels => this.orderDetailsNameModel; 
 
         public decimal TotalPrice
         {
@@ -148,6 +189,43 @@ namespace OneShop.Model
                 return 0;
             }
         }
+
+        public decimal TotalPriceWechat
+        {
+            get
+            {
+                if (this.OrderDetailsNameModels.Count > 0)
+                {
+                    return this.OrderDetailsNameModels.Where(w => null != w.Remarks && w.Remarks.Contains("微信")).ToList().Sum(x => x.DetailPrice);
+                }
+                return 0;
+            }
+        }
+
+        public decimal TotalPriceAlipay
+        {
+            get
+            {
+                if (this.OrderDetailsNameModels.Count > 0)
+                {
+                    return this.OrderDetailsNameModels.Where(w => null != w.Remarks && w.Remarks.Contains("支付宝")).ToList().Sum(x => x.DetailPrice);
+                }
+                return 0;
+            }
+        }
+
+        public decimal TotalPriceCash
+        {
+            get
+            {
+                if (this.OrderDetailsNameModels.Count > 0)
+                {
+                    return this.OrderDetailsNameModels.Where(w => null!= w.Remarks && w.Remarks.Contains("现金")).ToList().Sum(x => x.DetailPrice);
+                }
+                return 0;
+            }
+        }
+
 
         private bool IsValid(object para)
         {

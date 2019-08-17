@@ -22,7 +22,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\Portable\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
@@ -90,6 +90,8 @@
     <Compile Include="User.cs">
       <DependentUpon>OrderModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\DiscountMaintainanceViewModel.cs" />
+    <Compile Include="ViewModel\DiscountViewModel.cs" />
     <Compile Include="ViewModel\OrderDetailViewModel.cs" />
     <Compile Include="ViewModel\OrderViewModel.cs" />
     <Compile Include="ViewModel\StockNewViewModel.cs" />

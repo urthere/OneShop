@@ -43,16 +43,30 @@ namespace OneShop.Model
         public ICommand PreviousPageCommand { get; set; }
 
         private void QueryStockListPage(object page)
-        {            
+        {
             Expression<Func<Stock, bool>> a;
-            if (string.IsNullOrEmpty(page.ToString()))
+            if (1 == page.ToString().Length)
             {
-                a = (s) => 1 == 1;
+                a = s => 1 == 1;
             }
             else
             {
-                a = s => s.ItemBarcode.Equals(page.ToString());
+                var bc = page.ToString().Split('#')[0];
+                var iName = page.ToString().Split('#')[1];
+                if (!string.IsNullOrEmpty(bc) && !string.IsNullOrEmpty(iName))
+                {
+                    a = s => s.ItemBarcode.Equals(bc) && s.ItemName.Contains(iName);
+                }
+                else if (!string.IsNullOrEmpty(bc))
+                {
+                    a = s => s.ItemBarcode.Equals(bc);
+                }
+                else
+                {
+                    a = s => s.ItemName.Contains(iName);
+                }
             }
+            
 
             if (PageIndex * PageSize <= this.totalPage)
             {

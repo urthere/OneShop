@@ -46,5 +46,10 @@ namespace OneShop
         {
             CreateWindow(typeof(DailyReport), Properties.Settings.Default.DailyReport);
         }
+
+        private void Button_Click_5(object sender, RoutedEventArgs e)
+        {
+            CreateWindow(typeof(Statistical), Properties.Settings.Default.Statistical);
+        }
     }
 }

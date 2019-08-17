@@ -4,13 +4,29 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:OneShop">
-    <Canvas x:Name="canChart">
-        <Button Content="查询" Canvas.Top="100" Canvas.Left="100" Width="120" Height="32" Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}, Path=DataContext.GetDailySummaryReport}" />
-        <Line Stroke="Black" StrokeThickness="3" X1="40" Y1="600" X2="40" Y2="100" />
-        <Line Stroke="Black" StrokeThickness="3" X1="40" Y1="600" X2="680" Y2="600" />
-        <Polygon  Stroke="Black" StrokeThickness="3" Points="38,100 40,96 42,100"/>
-        <Polygon  Stroke="Black" StrokeThickness="3" Points="680,598 680,602 684,600"/>
-        <TextBlock Canvas.Left="18" Canvas.Top="590" Text="O" FontStyle="Italic" FontSize="20"></TextBlock>
+    <Grid>
+        <WebBrowser Source="http://localhost"></WebBrowser>
+    </Grid>
+    <!--<Canvas x:Name="canChart">
+        <Button Content="查询" Canvas.Top="100" Canvas.Left="200" Width="120" Height="32" Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}, Path=DataContext.GetDailySummaryReport}" />
+        <Line Stroke="Black" StrokeThickness="3" X1="100" Y1="600" X2="100" Y2="100" StrokeEndLineCap="Triangle" />
+        <Line Stroke="Black" StrokeThickness="3" X1="100" Y1="600" X2="800" Y2="600" StrokeEndLineCap="Triangle" />
+        <Line Stroke="Black" StrokeThickness="3" X1="100" Y1="520" X2="110" Y2="520" />
+        <TextBlock Canvas.Left="50" Canvas.Top="506" Text="500" FontStyle="Italic" FontSize="20"></TextBlock>
+        <Line Stroke="Black" StrokeThickness="3" X1="100" Y1="440" X2="110" Y2="440" />
+        <TextBlock Canvas.Left="50" Canvas.Top="426" Text="1000" FontStyle="Italic" FontSize="20"></TextBlock>
+        <Line Stroke="Black" StrokeThickness="3" X1="100" Y1="360" X2="110" Y2="360" />
+        <TextBlock Canvas.Left="50" Canvas.Top="346" Text="1500" FontStyle="Italic" FontSize="20"></TextBlock>
+        <Line Stroke="Black" StrokeThickness="3" X1="100" Y1="280" X2="110" Y2="280" />
+        <TextBlock Canvas.Left="50" Canvas.Top="266" Text="2000" FontStyle="Italic" FontSize="20"></TextBlock>
+        <Line Stroke="Black" StrokeThickness="3" X1="100" Y1="200" X2="110" Y2="200" />
+        <TextBlock Canvas.Left="50" Canvas.Top="186" Text="2500" FontStyle="Italic" FontSize="20"></TextBlock>
+        <Line Stroke="Black" StrokeThickness="3" X1="100" Y1="120" X2="110" Y2="120" />
+        <TextBlock Canvas.Left="50" Canvas.Top="106" Text="3000" FontStyle="Italic" FontSize="20"></TextBlock>
+        <Polygon  Stroke="Black" StrokeThickness="3" Points="98,100 100,96 102,100"/>
+        <Polygon  Stroke="Black" StrokeThickness="3" Points="800,598 800,602 804,600"/>
+        <TextBlock Canvas.Left="80" Canvas.Top="590" Text="O" FontStyle="Italic" FontSize="20"></TextBlock>
         <TextBlock Canvas.Left="10" Canvas.Top="60" Text="销售额" FontStyle="Italic" FontSize="20"></TextBlock>
-    </Canvas>
+        <TextBlock Canvas.Left="820" Canvas.Top="610" Text="日期" FontStyle="Italic" FontSize="20"></TextBlock>
+    </Canvas>-->
 </UserControl>

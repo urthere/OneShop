@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 
@@ -11,6 +12,7 @@ namespace OneShop.Model
         private decimal detailPrice;
         private decimal discount = 0;
         private Stock stock;
+        private DiscountViewModel discountViewModel;
         private int itemSoldCount = 1;
 
         public StockListModel(string barcode, string con)
@@ -21,6 +23,7 @@ namespace OneShop.Model
                 try
                 {
                     this.stock = context.Stocks.FirstOrDefault(x => x.ItemBarcode.Equals(barcode));
+                    this.discountViewModel = new DiscountViewModel(con);                    
                 }
                 catch (System.Data.Entity.Core.MetadataException ex)
                 {
@@ -30,10 +33,19 @@ namespace OneShop.Model
             }
         }
 
-        public Stock Stock
+        public IList<Discount> DiscountList
         {
-            get => this.stock;
+            get => this.discountViewModel.Discounts;
+            set
+            {
+                var dis = (Discount)value;
+                this.discount = dis.DiscountPercent;
+                CalculateDetailPrice();
+            }
         }
+
+
+        public Stock Stock => this.stock;
 
         public Action CalAct { get; set; }
 
@@ -44,7 +56,7 @@ namespace OneShop.Model
             {
                 if (decimal.TryParse(value.ToString(), out decimal i))
                 {
-                    this.discount = i;
+                    this.discount = this.DiscountList[(int)i].DiscountPercent / 100;
                     CalculateDetailPrice();
                 }
             }
@@ -52,19 +64,12 @@ namespace OneShop.Model
 
         private decimal RegDiscount(decimal i)
         {
-            switch (i)
-            {
-                case 0: return 1;
-                case 1: return 0.98m;
-                case 2:
-                default:
-                    return 0.95m;
-            }
+            return i == 0 ? 1 : i;
         }
 
         private void CalculateDetailPrice()
         {
-            this.detailPrice = Math.Round(itemSoldCount * RegDiscount(this.discount) * (decimal)stock.ItemPrice, MidpointRounding.AwayFromZero);
+            this.detailPrice = Math.Round(itemSoldCount * RegDiscount(this.discount) * (decimal)stock.ItemPrice, MidpointRounding.AwayFromZero);            
             RaisePropertyChanged("DetailPrice");
         }
 

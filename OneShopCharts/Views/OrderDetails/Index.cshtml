@@ -1,0 +1,86 @@
+﻿@model IEnumerable<OneShopCharts.Models.OrderDetail>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<script src="~/js/highcharts.js"></script>
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<div id="container"></div>
+@*<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.OrderID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ItemBarcode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UnitPrice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ItemCount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Discount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DetailPrice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsValid)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DatailDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Remarks)
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemBarcode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnitPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemCount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Discount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DetailPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsValid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DatailDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Remarks)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.DetailID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.DetailID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.DetailID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>*@

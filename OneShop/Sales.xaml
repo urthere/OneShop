@@ -43,13 +43,12 @@
                     <DataGridTemplateColumn Header="折扣">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <ComboBox SelectedIndex="{Binding Path=Discount, Mode=TwoWay, UpdateSourceTrigger=LostFocus}">
-                                    <ComboBoxItem>100%</ComboBoxItem>
-                                    <ComboBoxItem>98%</ComboBoxItem>
-                                    <ComboBoxItem>95%</ComboBoxItem>
+                                <ComboBox SelectedIndex="{Binding Path=Discount, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" 
+                                          ItemsSource="{Binding Path=DiscountList}"
+                                          DisplayMemberPath="DiscountPercent">
                                 </ComboBox>
                             </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn.CellTemplate>                        
                     </DataGridTemplateColumn>
                     <DataGridTemplateColumn Header="数量">
                         <DataGridTemplateColumn.CellTemplate>

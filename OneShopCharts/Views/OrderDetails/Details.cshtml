@@ -1,0 +1,72 @@
+﻿@model OneShopCharts.Models.OrderDetail
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>OrderDetail</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OrderID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ItemBarcode)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ItemBarcode)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UnitPrice)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UnitPrice)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ItemCount)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ItemCount)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Discount)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Discount)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DetailPrice)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DetailPrice)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IsValid)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IsValid)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DatailDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DatailDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Remarks)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Remarks)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.DetailID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

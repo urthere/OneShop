@@ -3,8 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OneShop"
         mc:Ignorable="d"
         Height="Auto" Width="Auto" >
+    <UserControl.Resources>
+        <local:SearchConverters x:Key="sct"/>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
@@ -25,8 +29,18 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="条码" Grid.Row="0" Grid.Column="0" FontSize="20" Margin="0,20,10,0" TextAlignment="Right"></TextBlock>
                 <TextBox x:Name="txtBarcode" Grid.Column="1" Grid.Row="0" Margin="2,20"/>
-                <Button Content="查  询" Grid.Row="0" Grid.Column="2" Grid.RowSpan="3" Margin="100,10" FontSize="40" Command="{Binding Path=QueryStockListCommand}" 
-                        CommandParameter="{Binding ElementName=txtBarcode, Path=Text}"></Button>
+                <TextBlock Text="名称" Grid.Row="1" Grid.Column="0" FontSize="20" Margin="0,20,10,0" TextAlignment="Right"></TextBlock>
+                <TextBox x:Name="txtItemName" Grid.Column="1" Grid.Row="1" Margin="2,20"/>
+                <Button Content="查  询" Grid.Row="0" Grid.Column="2" Grid.RowSpan="3" Margin="100,10" FontSize="40" Command="{Binding Path=QueryStockListCommand}">
+                    <Button.CommandParameter>
+                        <MultiBinding Converter="{ StaticResource ResourceKey=sct}" Mode="OneWay" >
+                            <MultiBinding.Bindings>
+                                <Binding ElementName="txtBarcode" Path="Text" />
+                                <Binding ElementName="txtItemName" Path="Text" />
+                            </MultiBinding.Bindings>
+                        </MultiBinding>
+                    </Button.CommandParameter>
+                </Button>
             </Grid>
         </GroupBox>
         <DataGrid x:Name="dgStoks" Grid.Row="1" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True"

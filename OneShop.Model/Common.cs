@@ -100,6 +100,32 @@ namespace OneShop.Model
             }));
             return tmp;
         }
+
+        public static IList<OrderDetailsNameModel> QuerySumJoin(OneShopEntities context, DateTime startDate, DateTime endDate)
+        {
+            var b = QueryJoin(context, startDate, endDate);
+
+            var a = b.GroupBy(x => new { x.ItemBarcode, x.UnitPrice, x.ItemName}).Select(gb => new {
+                gb.Key.ItemBarcode,
+                gb.Key.UnitPrice,
+                gb.Key.ItemName,
+                DetailPrice = gb.Sum(f => f.DetailPrice),
+                ItemCount = gb.Sum(c => c.ItemCount)
+            }).ToList();
+
+            IList<OrderDetailsNameModel> tmp = new List<OrderDetailsNameModel>();
+
+            a.ForEach(x => tmp.Add(new OrderDetailsNameModel()
+            {
+                ItemBarcode = x.ItemBarcode,
+                ItemCount = x.ItemCount,
+                ItemName = x.ItemName,
+                UnitPrice = x.UnitPrice,
+                DetailPrice = x.DetailPrice
+            }));
+
+            return tmp;
+        }
         public static IList<OrderDetailsNameModel> QueryJoin(OneShopEntities context, string serial)
         {
             var list = context.OrderDetails.Join(

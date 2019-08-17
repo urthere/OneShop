@@ -29,5 +29,8 @@
     <Setting Name="DailyReport" Type="System.String" Scope="User">
       <Value Profile="(Default)">销售日报</Value>
     </Setting>
+    <Setting Name="Statistical" Type="System.String" Scope="User">
+      <Value Profile="(Default)">统计</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneShop.Model", "OneShop.Mo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneShop.DAL", "OneShop.DAL\OneShop.DAL.csproj", "{23E08D85-076F-4440-9C52-194587DE8AD3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneShopCharts", "OneShopCharts\OneShopCharts.csproj", "{34217830-90D8-4D96-8083-5A0CEE15061F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{23E08D85-076F-4440-9C52-194587DE8AD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{23E08D85-076F-4440-9C52-194587DE8AD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{23E08D85-076F-4440-9C52-194587DE8AD3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34217830-90D8-4D96-8083-5A0CEE15061F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34217830-90D8-4D96-8083-5A0CEE15061F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34217830-90D8-4D96-8083-5A0CEE15061F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34217830-90D8-4D96-8083-5A0CEE15061F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,75 @@
+﻿@model OneShopCharts.Models.OrderDetail
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>OrderDetail</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OrderID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ItemBarcode)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ItemBarcode)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UnitPrice)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UnitPrice)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ItemCount)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ItemCount)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Discount)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Discount)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DetailPrice)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DetailPrice)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IsValid)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IsValid)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DatailDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DatailDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Remarks)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Remarks)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="DetailID" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>
