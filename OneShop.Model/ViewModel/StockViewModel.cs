@@ -11,9 +11,9 @@ namespace OneShop.Model
 
         private decimal detailPrice;
         private decimal discount = 0;
-        private Stock stock;
         private DiscountViewModel discountViewModel;
         private int itemSoldCount = 1;
+        private decimal detailSalePrice;
 
         public StockListModel(string barcode, string con)
         {
@@ -22,7 +22,9 @@ namespace OneShop.Model
                 context.Database.Connection.ConnectionString = con;
                 try
                 {
-                    this.stock = context.Stocks.FirstOrDefault(x => x.ItemBarcode.Equals(barcode));
+                    this.Stock = context.Stocks.FirstOrDefault(x => x.ItemBarcode.Equals(barcode));
+                    detailSalePrice = (decimal)Stock.SalePrice;
+                    detailPrice = (decimal)Stock.ItemPrice;
                     this.discountViewModel = new DiscountViewModel(con);                    
                 }
                 catch (System.Data.Entity.Core.MetadataException ex)
@@ -45,7 +47,7 @@ namespace OneShop.Model
         }
 
 
-        public Stock Stock => this.stock;
+        public Stock Stock { get; }
 
         public Action CalAct { get; set; }
 
@@ -69,32 +71,36 @@ namespace OneShop.Model
 
         private void CalculateDetailPrice()
         {
-            this.detailPrice = Math.Round(itemSoldCount * RegDiscount(this.discount) * (decimal)stock.ItemPrice, MidpointRounding.AwayFromZero);            
+            this.detailPrice = Math.Round(itemSoldCount * RegDiscount(this.discount) * (decimal)Stock.ItemPrice, MidpointRounding.AwayFromZero);
+            detailSalePrice = detailPrice;
             RaisePropertyChanged("DetailPrice");
+            RaisePropertyChanged("DetailSalePrice");
         }
 
-        public decimal DetailPrice
+        public decimal DetailPrice => detailPrice;
+
+        public decimal DetailSalePrice
         {
-            get
+            get => detailSalePrice;
+            set
             {
-                if (0 == detailPrice)
+                if (decimal.TryParse(value.ToString(), out decimal i))
                 {
-                    this.detailPrice = itemSoldCount * RegDiscount(this.discount) * (decimal)stock.ItemPrice;
-                    this.detailPrice = Math.Round(this.detailPrice, MidpointRounding.AwayFromZero);
-                    RaisePropertyChanged("DetailPrice");
+                    detailSalePrice = i;
+                    RaisePropertyChanged("DetailSalePrice");
                 }
-                return this.detailPrice;
             }
         }
+
         public string ItemBarcode
         {
-            get => stock.ItemBarcode;
+            get => Stock.ItemBarcode;
         }
-        public string ItemName { get => stock.ItemName; set => stock.ItemName = value; }       
+        public string ItemName { get => Stock.ItemName; set => Stock.ItemName = value; }       
 
         public int? ItemCount
         {
-            get => this.itemSoldCount;
+            get => itemSoldCount;
             set
             {
                 if (int.TryParse(value.ToString(), out int i))
@@ -104,7 +110,8 @@ namespace OneShop.Model
                 }
             }
         }
-        public decimal? ItemPrice { get => stock.ItemPrice; }
+        
+        public decimal? ItemPrice { get => Stock.ItemPrice; }
         public string StoredBy { get; }
         public DateTime StoredDate { get;  }
         public string ModBy { get;  }

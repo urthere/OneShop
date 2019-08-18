@@ -41,6 +41,7 @@
           <Property Name="ItemCount" Type="int" Nullable="false" />
           <Property Name="Discount" Type="numeric" Precision="6" Scale="2" Nullable="false" />
           <Property Name="DetailPrice" Type="numeric" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="ActualPrice" Type="numeric" Precision="10" Scale="2" />
           <Property Name="IsValid" Type="bit" Nullable="false" />
           <Property Name="DatailDate" Type="datetime" Nullable="false" />
           <Property Name="Remarks" Type="nvarchar" MaxLength="100" />
@@ -53,6 +54,7 @@
           <Property Name="ItemName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ItemCount" Type="int" />
           <Property Name="ItemPrice" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="SalePrice" Type="numeric" Precision="10" Scale="2" />
           <Property Name="StoredBy" Type="varchar" MaxLength="20" />
           <Property Name="StoredDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="ModBy" Type="varchar" MaxLength="20" Nullable="false" />
@@ -108,6 +110,7 @@
           <Property Name="StoredDate" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="ModBy" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ModDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="SalePrice" Type="Decimal" Precision="10" Scale="2" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -126,26 +129,11 @@
         <EntityContainer Name="OneShopEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Stocks" EntityType="Self.Stock" />
           <EntitySet Name="Users" EntityType="Self.User" />
-          <EntitySet Name="OrderDetails" EntityType="OneShopModel.OrderDetail" />
           <EntitySet Name="Discounts" EntityType="OneShopModel.Discount" />
           <EntitySet Name="Orders" EntityType="OneShopModel.Order" />
           <EntitySet Name="StockHistories" EntityType="OneShopModel.StockHistory" />
+          <EntitySet Name="OrderDetails" EntityType="OneShopModel.OrderDetail" />
         </EntityContainer>
-        <EntityType Name="OrderDetail">
-          <Key>
-            <PropertyRef Name="DetailID" />
-          </Key>
-          <Property Name="DetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="OrderID" Type="Int32" Nullable="false" />
-          <Property Name="ItemBarcode" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="ItemCount" Type="Int32" Nullable="false" />
-          <Property Name="Discount" Type="Decimal" Nullable="false" Precision="6" Scale="2" />
-          <Property Name="DetailPrice" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
-          <Property Name="IsValid" Type="Boolean" Nullable="false" />
-          <Property Name="DatailDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="UnitPrice" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
-        </EntityType>
         <EntityType Name="Discount">
           <Key>
             <PropertyRef Name="DiscountID" />
@@ -183,6 +171,22 @@
           <Property Name="HistoryBy" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="HistoryDate" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
+        <EntityType Name="OrderDetail">
+          <Key>
+            <PropertyRef Name="DetailID" />
+          </Key>
+          <Property Name="DetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderID" Type="Int32" Nullable="false" />
+          <Property Name="ItemBarcode" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="UnitPrice" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="ItemCount" Type="Int32" Nullable="false" />
+          <Property Name="Discount" Type="Decimal" Nullable="false" Precision="6" Scale="2" />
+          <Property Name="DetailPrice" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="ActualPrice" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="IsValid" Type="Boolean" Nullable="false" />
+          <Property Name="DatailDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -192,6 +196,7 @@
           <EntitySetMapping Name="Stocks">
             <EntityTypeMapping TypeName="OneShopModel.Stock">
               <MappingFragment StoreEntitySet="Stock">
+                <ScalarProperty Name="SalePrice" ColumnName="SalePrice" />
                 <ScalarProperty Name="ItemBarcode" ColumnName="ItemBarcode" />
                 <ScalarProperty Name="ItemName" ColumnName="ItemName" />
                 <ScalarProperty Name="ItemCount" ColumnName="ItemCount" />
@@ -215,22 +220,6 @@
                 <ScalarProperty Name="ModBy" ColumnName="ModBy" />
                 <ScalarProperty Name="ModDate" ColumnName="ModDate" />
                 <ScalarProperty Name="Remark" ColumnName="Remark" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="OrderDetails">
-            <EntityTypeMapping TypeName="OneShopModel.OrderDetail">
-              <MappingFragment StoreEntitySet="OrderDetail">
-                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
-                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="DatailDate" ColumnName="DatailDate" />
-                <ScalarProperty Name="IsValid" ColumnName="IsValid" />
-                <ScalarProperty Name="DetailPrice" ColumnName="DetailPrice" />
-                <ScalarProperty Name="Discount" ColumnName="Discount" />
-                <ScalarProperty Name="ItemCount" ColumnName="ItemCount" />
-                <ScalarProperty Name="ItemBarcode" ColumnName="ItemBarcode" />
-                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-                <ScalarProperty Name="DetailID" ColumnName="DetailID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -271,6 +260,23 @@
                 <ScalarProperty Name="ItemName" ColumnName="ItemName" />
                 <ScalarProperty Name="ItemBarcode" ColumnName="ItemBarcode" />
                 <ScalarProperty Name="HisID" ColumnName="HisID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderDetails">
+            <EntityTypeMapping TypeName="OneShopModel.OrderDetail">
+              <MappingFragment StoreEntitySet="OrderDetail">
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="DatailDate" ColumnName="DatailDate" />
+                <ScalarProperty Name="IsValid" ColumnName="IsValid" />
+                <ScalarProperty Name="ActualPrice" ColumnName="ActualPrice" />
+                <ScalarProperty Name="DetailPrice" ColumnName="DetailPrice" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="ItemCount" ColumnName="ItemCount" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="ItemBarcode" ColumnName="ItemBarcode" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="DetailID" ColumnName="DetailID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

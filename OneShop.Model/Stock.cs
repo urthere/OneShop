@@ -22,5 +22,6 @@ namespace OneShop.Model
         public System.DateTime StoredDate { get; set; }
         public string ModBy { get; set; }
         public System.DateTime ModDate { get; set; }
+        public Nullable<decimal> SalePrice { get; set; }
     }
 }

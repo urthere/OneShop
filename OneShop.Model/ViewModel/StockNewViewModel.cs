@@ -199,12 +199,14 @@ namespace OneShop.Model
                     ItemBarcode = Stock.ItemBarcode,
                     ItemPrice = Stock.ItemPrice,
                     ItemName = Stock.ItemName,
-                    ModBy = Stock.ModBy = "admin"
+                    ModBy = Stock.ModBy = "admin",
+                    SalePrice = Stock.ItemPrice
                 };
                 
                 if (this.AddOrEditFlag)
                 {
                     this.Stock.ItemCount += this.newCount;
+                    this.Stock.SalePrice = Stock.ItemPrice;
                     entity.Entry(this.Stock).State = System.Data.Entity.EntityState.Modified;
                 }
                 else
@@ -291,19 +293,8 @@ namespace OneShop.Model
             }
         }
 
-        public void EditStock(object para)
-        {
-            
-            entity.SaveChanges();
-        }
-
         public bool IsExistsStock(object para)
-        {
-            //if (null == Stock)
-            //{
-            //    return false;
-            //}
-            //return Stock.ItemCount >= 0 && Stock.ItemPrice >= 0 ? true : false;
+        {            
             return true;
         }
 

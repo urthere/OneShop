@@ -27,9 +27,9 @@ namespace OneShop.Model
     
         public virtual DbSet<Stock> Stocks { get; set; }
         public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<OrderDetail> OrderDetails { get; set; }
         public virtual DbSet<Discount> Discounts { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<StockHistory> StockHistories { get; set; }
+        public virtual DbSet<OrderDetail> OrderDetails { get; set; }
     }
 }

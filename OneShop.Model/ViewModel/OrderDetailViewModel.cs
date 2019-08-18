@@ -13,8 +13,6 @@ namespace OneShop.Model
         private readonly string ConnectionString;
         private Order objOrder;
         private IList<OrderDetail> objOrderDetail;
-        private IList<StockListModel> stockList;
-        private string currentUser;
 
         public StockViewModel(string conStr)
         {
@@ -22,25 +20,25 @@ namespace OneShop.Model
 
             objOrder = new Order() { IsValid = true };
             objOrderDetail = new List<OrderDetail>();
-            stockList = new ObservableCollection<StockListModel>();
+            StockList = new ObservableCollection<StockListModel>();
         }
 
         public void ClearAll()
         {
             this.objOrder = new Order() { IsValid = true, OrderPrice = 0 };
             this.objOrderDetail.Clear();
-            this.stockList.Clear();
+            this.StockList.Clear();
             
         }
 
         public void CancelStock(StockListModel model)
         {
-            this.stockList.Remove(model);
+            this.StockList.Remove(model);
         }
 
         private void PrepareOrderDetail()
         {
-            foreach (var item in stockList)
+            foreach (var item in StockList)
             {
                 objOrderDetail.Add(new OrderDetail()
                 {
@@ -50,7 +48,8 @@ namespace OneShop.Model
                     IsValid = true,
                     DatailDate = DateTime.Now,
                     UnitPrice = (decimal)item.ItemPrice,
-                    Discount=item.Discount
+                    Discount = item.Discount,
+                    ActualPrice = item.DetailSalePrice
                 });
             }
         }
@@ -116,7 +115,7 @@ namespace OneShop.Model
             {
                 return false;
             }
-            this.stockList.Add(stockView);
+            this.StockList.Add(stockView);
             ReCalculate();
             return true;
         }
@@ -136,16 +135,16 @@ namespace OneShop.Model
         public void ReCalculate()
         {
             objOrder.OrderPrice = 0.0m;
-            foreach (var item in stockList)
+            foreach (var item in StockList)
             {
-                objOrder.OrderPrice += item.DetailPrice;
+                objOrder.OrderPrice += item.DetailSalePrice;
             }
 
             this.RaisePropertyChanged("OrderPrice");
         }
-                   
-        public IList<StockListModel> StockList { get => stockList;}
-        public string CurrentUser { get => currentUser; set => currentUser = value; }
+
+        public IList<StockListModel> StockList { get; }
+        public string CurrentUser { get; set; }
 
         private void RaisePropertyChanged(string name)
         {

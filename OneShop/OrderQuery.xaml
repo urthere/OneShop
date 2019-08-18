@@ -64,6 +64,7 @@
                 <DataGridTextColumn Header="数量" Binding="{Binding Path=ItemCount}" />
                 <DataGridTextColumn Header="折扣" Binding="{Binding Path=Discount, Converter={StaticResource DisTC}}" />
                 <DataGridTextColumn Header="金额" Binding="{Binding Path=DetailPrice}" />
+                <DataGridTextColumn Header="实收" Binding="{Binding Path=ActualPrice}" />
                 <DataGridTextColumn Header="状态" Binding="{Binding Path=IsValid, Converter={StaticResource STC}}" />
                 <DataGridTextColumn Header="日期" Binding="{Binding Path=DatailDate}" />
                 <DataGridTextColumn Header="备注" Binding="{Binding Path=Remarks}" />
@@ -73,7 +74,8 @@
             <TextBlock Text="{Binding Path=DataContext.TotalPriceAlipay, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}, StringFormat=支付宝合计：{0:C}}" Grid.Row="2" TextAlignment="Left"/>
             <TextBlock Text="{Binding Path=DataContext.TotalPriceWechat, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}, StringFormat=微信合计：{0:C}}" TextAlignment="Left"/>
             <TextBlock Text="{Binding Path=DataContext.TotalPriceCash, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}, StringFormat=现金合计：{0:C}}" TextAlignment="Left"/>
-            <TextBlock Text="{Binding Path=DataContext.TotalPrice, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}, StringFormat=总计：{0:C}}" TextAlignment="Left"/>
+            <TextBlock Text="{Binding Path=DataContext.TotalPrice, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}, StringFormat=金额总计：{0:C}}" TextAlignment="Left"/>
+            <TextBlock Text="{Binding Path=DataContext.TotalActualPrice, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}, StringFormat=实收总计：{0:C}}" TextAlignment="Left"/>
         </StackPanel>
     </Grid>
 </UserControl>

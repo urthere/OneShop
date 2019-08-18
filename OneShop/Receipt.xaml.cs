@@ -32,6 +32,7 @@ namespace OneShop
                 trProperties.Cells.Add(new TableCell(new Paragraph(new Run(item.ItemCount.ToString()))));
                 trProperties.Cells.Add(new TableCell(new Paragraph(new Run(item.ItemPrice.ToString()))));
                 trProperties.Cells.Add(new TableCell(new Paragraph(new Run(item.DetailPrice.ToString()))));
+                //trProperties.Cells.Add(new TableCell(new Paragraph(new Run(item.DetailSalePrice.ToString()))));
 
                 trg.Rows.Add(trProperties);
             }

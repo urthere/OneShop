@@ -25,7 +25,8 @@
         <TextBox x:Name="txtBarcode" Grid.Row="1" Style="{StaticResource stlBarcode}" HorizontalAlignment="Left" Margin="2,4,0,0" Width="440" Height="56" VerticalAlignment="Top" 
                  input:InputMethod.IsInputMethodEnabled="False" PreviewTextInput="txtBarcode_PreviewTextInput" PreviewKeyDown="txtBarcode_PreviewKeyDown"></TextBox>
         <TextBlock x:Name="tbTotal" Text="{Binding Path=OrderPrice,StringFormat={}{0:C}}" Grid.Row="1" Margin="450,4,140,0" FontSize="38" TextAlignment="Right"/>
-        <Button x:Name="btnPrint" Grid.Row="1" HorizontalAlignment="Right" Content="出单"  VerticalAlignment="Center" Height="56" Width="120" Padding="4,0,4,4" FontSize="44" Margin="0,0,10,0" Click="btnPrint_Click"/>
+        <Button x:Name="btnPrint" Grid.Row="1" HorizontalAlignment="Right" Content="出单"  VerticalAlignment="Center" Height="56" Width="120" Padding="4,0,4,4" FontSize="44" Margin="0,0,10,0" 
+                Click="btnPrint_Click"/>
         <Grid Grid.Row="2" Margin="2,10,0,0" FlowDirection="LeftToRight" Height="Auto" ShowGridLines="False">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="7*"></ColumnDefinition>
@@ -62,7 +63,19 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="金额" Binding="{Binding Path=DetailPrice, Mode=OneWay, StringFormat=0.00}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="应收" Binding="{Binding Path=DetailPrice, Mode=OneWay, StringFormat=0.00}"></DataGridTextColumn>
+                    <DataGridTemplateColumn Header="实收">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=DetailSalePrice, StringFormat=0.00}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Path=DetailSalePrice, Mode=TwoWay, StringFormat=0.00, UpdateSourceTrigger=PropertyChanged}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
             <StackPanel Grid.Column="1" HorizontalAlignment="Center">

@@ -15,7 +15,7 @@ namespace OneShop
             var total = 0.0m;
             foreach (var item in list)
             {
-                total += item.DetailPrice;
+                total += item.DetailSalePrice;
             }
             return total;
         }

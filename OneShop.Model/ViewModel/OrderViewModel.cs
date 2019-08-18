@@ -11,15 +11,12 @@ namespace OneShop.Model
     {
         private Order order = new Order();
         private ObservableCollection<Order> orders;
-        private IList<OrderDetailsNameModel> orderDetailsNameModel;
         private string conn;
-        private int totalCount;
-        private decimal dailyMax;
 
         public OrderViewModel(string con)
         {
             this.orders = new ObservableCollection<Order>();
-            orderDetailsNameModel = new List<OrderDetailsNameModel>();
+            OrderDetailsNameModels = new List<OrderDetailsNameModel>();
             conn = con;
             QueryDetailsCommand = new DelegateCommand(this.GetOrderDetails, this.IsValid);
             QueryOrderCommand = new DelegateCommand(this.GetOrder, this.IsValid);
@@ -39,7 +36,7 @@ namespace OneShop.Model
             using (var context = new OneShopEntities())
             {
                 context.Database.Connection.ConnectionString = this.conn;
-                orderDetailsNameModel = Common<OrderDetailsNameModel>.QueryJoin(context, para.ToString());                
+                OrderDetailsNameModels = Common<OrderDetailsNameModel>.QueryJoin(context, para.ToString());                
             }
             RaisePropertyChanged("OrderDetailsNameModels");
             RaisePropertyChanged("TotalPrice");
@@ -58,13 +55,11 @@ namespace OneShop.Model
                 using (var context = new OneShopEntities())
                 {
                     context.Database.Connection.ConnectionString = this.conn;
-                    orderDetailsNameModel = Common<OrderDetailsNameModel>.QuerySumJoin(context, startDate, endDate);
+                    OrderDetailsNameModels = Common<OrderDetailsNameModel>.QuerySumJoin(context, startDate, endDate);
                 }
                 RaisePropertyChanged("OrderDetailsNameModels");
                 RaisePropertyChanged("TotalPrice");
-                RaisePropertyChanged("TotalPriceWechat");
-                RaisePropertyChanged("TotalPriceAlipay");
-                RaisePropertyChanged("TotalPriceCash");
+                RaisePropertyChanged("TotalActualPrice");
             }
             catch (Exception ex)
             {
@@ -83,10 +78,11 @@ namespace OneShop.Model
                 using (var context = new OneShopEntities())
                 {
                     context.Database.Connection.ConnectionString = this.conn;
-                    orderDetailsNameModel = Common<OrderDetailsNameModel>.QueryJoin(context, startDate, endDate);
+                    OrderDetailsNameModels = Common<OrderDetailsNameModel>.QueryJoin(context, startDate, endDate);
                 }
                 RaisePropertyChanged("OrderDetailsNameModels");
                 RaisePropertyChanged("TotalPrice");
+                RaisePropertyChanged("TotalActualPrice");
                 RaisePropertyChanged("TotalPriceWechat");
                 RaisePropertyChanged("TotalPriceAlipay");
                 RaisePropertyChanged("TotalPriceCash");
@@ -113,7 +109,7 @@ namespace OneShop.Model
                         .Select(f => new { SumDate = f.Key, Rows = f.Count(), DailySum = f.Sum(w => w.DetailPrice) })
                         .Where(w => w.SumDate > firstDay && w.SumDate < DateTime.Now);
                     var list = sum.ToList();
-                    this.dailyMax = list.Max(x => x.DailySum) + 500m;
+                    this.DailyMax = list.Max(x => x.DailySum) + 500m;
                 }
             }
             catch (Exception ex)
@@ -127,10 +123,7 @@ namespace OneShop.Model
             get => DateTime.Now.Day;
         }
 
-        public decimal DailyMax
-        {
-            get => this.dailyMax;
-        }
+        public decimal DailyMax { get; private set; }
 
         private void RefundDetail(object para)
         {
@@ -170,13 +163,9 @@ namespace OneShop.Model
 
         public int PageSize { get; set; } = 20;
         public int PageIndex { get; set; } = 1;
-        public int TotalCount
-        {
-            get => this.totalCount;
-            set => this.totalCount = value;
-        }
+        public int TotalCount { get; set; }
 
-        public IList<OrderDetailsNameModel> OrderDetailsNameModels => this.orderDetailsNameModel; 
+        public IList<OrderDetailsNameModel> OrderDetailsNameModels { get; private set; }
 
         public decimal TotalPrice
         {
@@ -185,6 +174,18 @@ namespace OneShop.Model
                 if (this.OrderDetailsNameModels.Count > 0)
                 {
                     return this.OrderDetailsNameModels.Sum(x => x.DetailPrice);
+                }
+                return 0;
+            }
+        }
+
+        public decimal TotalActualPrice
+        {
+            get
+            {
+                if (this.OrderDetailsNameModels.Count > 0)
+                {
+                    return this.OrderDetailsNameModels.Sum(x => (decimal)x.ActualPrice);
                 }
                 return 0;
             }

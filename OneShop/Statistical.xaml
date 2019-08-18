@@ -16,6 +16,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="4*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
         <GroupBox Header="查询条件" Margin="4">
             <Grid>
@@ -52,7 +53,12 @@
                 <DataGridTextColumn Header="单价" Binding="{Binding Path=UnitPrice}" />
                 <DataGridTextColumn Header="数量" Binding="{Binding Path=ItemCount}" />
                 <DataGridTextColumn Header="金额" Binding="{Binding Path=DetailPrice}" />
+                <DataGridTextColumn Header="实收" Binding="{Binding Path=ActualPrice}" />
             </DataGrid.Columns>
         </DataGrid>
+        <StackPanel Grid.Row="2">
+            <TextBlock Text="{Binding Path=DataContext.TotalPrice, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}, StringFormat=金额合计：{0:C}}" TextAlignment="Left"/>
+            <TextBlock Text="{Binding Path=DataContext.TotalActualPrice, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}, StringFormat=实收总计：{0:C}}" TextAlignment="Left"/>
+        </StackPanel>
     </Grid>
 </UserControl>

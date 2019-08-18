@@ -60,6 +60,7 @@ namespace OneShop.Model
                     s.ItemName,
                     od.UnitPrice,
                     od.DetailPrice,
+                    od.ActualPrice,
                     od.Discount,
                     od.DatailDate,
                     od.ItemCount,
@@ -77,6 +78,7 @@ namespace OneShop.Model
                     od.ItemName,
                     od.UnitPrice,
                     od.DetailPrice,
+                    od.ActualPrice,
                     od.Discount,
                     od.DatailDate,
                     od.ItemCount,
@@ -96,7 +98,8 @@ namespace OneShop.Model
                 DatailDate = x.DatailDate,
                 IsValid = x.IsValid,
                 DetailPrice = x.DetailPrice,
-                Remarks = x.Remarks
+                Remarks = x.Remarks,
+                ActualPrice = x.ActualPrice
             }));
             return tmp;
         }
@@ -110,7 +113,8 @@ namespace OneShop.Model
                 gb.Key.UnitPrice,
                 gb.Key.ItemName,
                 DetailPrice = gb.Sum(f => f.DetailPrice),
-                ItemCount = gb.Sum(c => c.ItemCount)
+                ItemCount = gb.Sum(c => c.ItemCount),
+                ActualPrice = gb.Sum(f => f.ActualPrice)
             }).ToList();
 
             IList<OrderDetailsNameModel> tmp = new List<OrderDetailsNameModel>();
@@ -121,7 +125,8 @@ namespace OneShop.Model
                 ItemCount = x.ItemCount,
                 ItemName = x.ItemName,
                 UnitPrice = x.UnitPrice,
-                DetailPrice = x.DetailPrice
+                DetailPrice = x.DetailPrice,
+                ActualPrice = x.ActualPrice
             }));
 
             return tmp;
