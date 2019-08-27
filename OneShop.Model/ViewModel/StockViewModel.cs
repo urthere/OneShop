@@ -23,13 +23,22 @@ namespace OneShop.Model
                 try
                 {
                     this.Stock = context.Stocks.FirstOrDefault(x => x.ItemBarcode.Equals(barcode));
-                    detailSalePrice = (decimal)Stock.SalePrice;
-                    detailPrice = (decimal)Stock.ItemPrice;
-                    this.discountViewModel = new DiscountViewModel(con);                    
+                    if (Stock != null)
+                    {
+                        detailSalePrice = (decimal)Stock.SalePrice;
+                        detailPrice = (decimal)Stock.ItemPrice;
+                        this.discountViewModel = new DiscountViewModel(con);
+                    }
                 }
                 catch (System.Data.Entity.Core.MetadataException ex)
                 {
                     throw;
+                }
+                catch(Exception ex1)
+                {
+                    var msg = ex1.Message;
+                    OneLog.WriteLog(ex1.Message);
+                    OneLog.WriteLog(ex1.StackTrace);
                 }
                 
             }

@@ -1,0 +1,15 @@
+Object reference not set to an instance of an object.
+11
+Object reference not set to an instance of an object.
+3
+Object reference not set to an instance of an object.
+3
+Object reference not set to an instance of an object.
+0
+Object reference not set to an instance of an object.
+0
+Object reference not set to an instance of an object.
+Object reference not set to an instance of an object.
+   at OneShop.Model.StockListModel..ctor(String barcode, String con) in D:\vs2017pjs\OneShop\OneShop.Model\ViewModel\StockViewModel.cs:line 26
+Object reference not set to an instance of an object.
+   at OneShop.Model.StockListModel..ctor(String barcode, String con) in D:\vs2017pjs\OneShop\OneShop.Model\ViewModel\StockViewModel.cs:line 27

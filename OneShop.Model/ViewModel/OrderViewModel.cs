@@ -197,7 +197,7 @@ namespace OneShop.Model
             {
                 if (this.OrderDetailsNameModels.Count > 0)
                 {
-                    return this.OrderDetailsNameModels.Where(w => null != w.Remarks && w.Remarks.Contains("微信")).ToList().Sum(x => x.DetailPrice);
+                    return this.OrderDetailsNameModels.Where(w => null != w.Remarks && w.Remarks.Contains("微信")).ToList().Sum(x => (decimal)x.ActualPrice);
                 }
                 return 0;
             }
@@ -209,7 +209,7 @@ namespace OneShop.Model
             {
                 if (this.OrderDetailsNameModels.Count > 0)
                 {
-                    return this.OrderDetailsNameModels.Where(w => null != w.Remarks && w.Remarks.Contains("支付宝")).ToList().Sum(x => x.DetailPrice);
+                    return this.OrderDetailsNameModels.Where(w => null != w.Remarks && w.Remarks.Contains("支付宝")).ToList().Sum(x => (decimal)x.ActualPrice);
                 }
                 return 0;
             }
@@ -221,7 +221,7 @@ namespace OneShop.Model
             {
                 if (this.OrderDetailsNameModels.Count > 0)
                 {
-                    return this.OrderDetailsNameModels.Where(w => null!= w.Remarks && w.Remarks.Contains("现金")).ToList().Sum(x => x.DetailPrice);
+                    return this.OrderDetailsNameModels.Where(w => null!= w.Remarks && w.Remarks.Contains("现金")).ToList().Sum(x => (decimal)x.ActualPrice);
                 }
                 return 0;
             }
